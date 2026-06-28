@@ -4,35 +4,83 @@ import dados from '../itens.json';
 
 //Manutenção
 
-export function BarraSuperiorManutencao(){
+export function BarraSuperior({element}){
   return(
     <section className='flex flex-col flex-nowrap p-4 md:p-8 border 
       border-slate-400 rounded-3xl shadow-xl w-full m-auto mt-4 
       bg-radial-[at_0%_100%] from-slate-300 to-slate-100'>
         <div className='flex flex-col md:flex-row'>
-          <div className='flex flex-col md:w-2/3'>
-            <div className='rounded-full border border-slate-400 w-fit px-3 py-1 
-              italic bg-slate-100 text-cyan-400 text-xs md:text-lg font-semibold'>
-              Histórico
-            </div>
-            <h2 className='py-4 text-xl md:text-6xl text-justify font-bold text-blue-700'>
-              Manutenções</h2>
-            <p>
-              Visualize todas as manutenções registradas para cada veículo, assim como 
-              data e quilometragem da próxima troca.
-            </p>
-          </div>
-          <div className='flex flex-col flex-nowrap md:w-1/3 mt-4 md:mt-0'>
-            <div className='paisagem:flex paisagem:flex-row'>
-              <div className='paisagem:w-1/2 md:hidden'></div>
-              <div className='flex flex-row flex-nowrap gap-2 paisagem:w-1/2 md:w-full'>
-                  <InputData name = "data" label = "data" className='flex flex-col w-1/2' />
-                  <InputNumero name = "quilometragem" label = "quilometragem" className='flex flex-col w-1/2' />
-              </div>
-            </div>
-          </div>
+          {element}
         </div>
     </section>
+  )
+}
+
+export function BarraSuperiorManutencao(){
+  return(
+    <div className='flex flex-col md:flex-row'>
+      <div className='flex flex-col md:w-2/3'>
+        <div className='rounded-full border border-slate-400 w-fit px-3 py-1 
+          italic bg-slate-100 text-cyan-400 text-xs md:text-lg font-semibold'>
+          Histórico
+        </div>
+        <h2 className='py-4 text-xl md:text-6xl text-justify font-bold text-blue-700'>
+          Manutenções</h2>
+        <p>
+          Visualize todas as manutenções registradas para cada veículo, assim como 
+          data e quilometragem da próxima troca.
+        </p>
+      </div>
+      <div className='flex flex-col flex-nowrap md:w-1/3 mt-4 md:mt-0'>
+        <div className='paisagem:flex paisagem:flex-row'>
+          <div className='paisagem:w-1/2 md:hidden'></div>
+          <div className='flex flex-row flex-nowrap gap-2 paisagem:w-1/2 md:w-full'>
+              <InputData name = "data" label = "data" className='flex flex-col w-1/2' />
+              <InputNumero name = "quilometragem" label = "quilometragem" className='flex flex-col w-1/2' />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export function BarraSuperiorItens(){
+  return(
+    <div className='flex flex-col md:flex-row'>
+      <div className='flex flex-col'>
+        <div className='rounded-full border border-slate-400 w-fit px-3 py-1 
+          italic bg-slate-100 text-cyan-400 text-xs md:text-lg font-semibold'>
+          Histórico
+        </div>
+        <h2 className='py-4 text-xl md:text-6xl text-justify font-bold text-blue-700'>
+          Ítens de Manutenção</h2>
+        <p>
+          Mantenha o cadastro dos ítens de manutenção dos seus veículos informando 
+          descrição do ítem, intervalo para próxima manutenção em quilômetros e meses, 
+          assim como quilometragem e data da última manutenção.
+        </p>
+      </div>
+    </div>
+  )
+} 
+
+export function BarraSuperiorVeiculos(){
+  return(
+    <div className='flex flex-col md:flex-row'>
+      <div className='flex flex-col'>
+        <div className='rounded-full border border-slate-400 w-fit px-3 py-1 
+          italic bg-slate-100 text-cyan-400 text-xs md:text-lg font-semibold'>
+          Histórico
+        </div>
+        <h2 className='py-4 text-xl md:text-6xl text-justify font-bold text-blue-700'>
+          Veículos</h2>
+        <p>
+          Mantenha o cadastro dos seus veículos com informações completas como marca, 
+          modelo, ano de fabricação, cor, placa, dentre outras informações que achar 
+          necessárias.
+        </p>
+      </div>
+    </div>
   )
 }
 
