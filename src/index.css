@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+@theme {
+    --breakpoint-menor: 25rem;
+    --breakpoint-paisagem: 36rem;
+}
