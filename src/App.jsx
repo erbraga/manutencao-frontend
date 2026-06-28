@@ -2,7 +2,6 @@
 // import './index.css';
 import {Link, Outlet} from 'react-router'
 import {IconePrincipal,IconeHome,IconeItemManutencao,IconeVeiculo} from './components/Icons';
-import {BarraSuperiorManutencao, PrincipalManutencao} from './components/tela';
 
 export default function App() {
 
@@ -10,10 +9,10 @@ export default function App() {
     <div className='text-stone-700 text-sm md:text-base'>
       <Cabecalho />
   
-      <div className='w-full p-2 md:min-w-2xl md:max-w-5xl 
+      <main className='w-full p-2 md:min-w-2xl md:max-w-5xl 
         xl:min-w-6xl xl:max-w-7xl m-auto'>
           <Outlet />
-      </div>
+      </main>
     
     </div>
   );
@@ -29,20 +28,20 @@ function Cabecalho(){
             <h1 className='p-1 font-bold text-sm md:text-2xl'>Manutenção de veículos</h1>
           </div>
           <div className='m-1 p-2 flex flex-row gap-2'>
-            <div className='border border-slate-400 rounded-full flex flex-row'>
-              <div>
+            <nav className='border border-slate-400 rounded-full flex flex-row'>
+              <Link to= '/manutencao'>
                 <IconeHome className="m-1 p-1 rounded-full  text-stone-500 
                   hover:bg-slate-300 focus:bg-blue-700 focus:text-white " />
-              </div>
-              <div>
+              </Link>
+              <Link to= '/itens'>
                 <IconeItemManutencao className="m-1 p-1 rounded-full  text-stone-500 
                   hover:bg-slate-300 focus:bg-blue-700 focus:text-white w-10" />
-              </div>
-              <div>
+              </Link>
+              <Link to='/veiculos'>
                 <IconeVeiculo className="m-1 p-1 rounded-full text-stone-500 
                   hover:bg-slate-300 focus:bg-blue-700 focus:text-white" />
-              </div>
-            </div>
+              </Link>
+            </nav>
             {/* <div className='border border-slate-400 rounded-full'>
               <IconeModoAutomatico className="p-3 rounded-full  text-black bg-white hover:bg-slate-300" />
             </div> */}

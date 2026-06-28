@@ -6,7 +6,8 @@ export default function Itens() {
     <div className='text-stone-700 text-sm md:text-base'>
       <div className='w-full p-2 md:min-w-2xl md:max-w-5xl 
         xl:min-w-6xl xl:max-w-7xl m-auto'>
-          PÁGINA PRINCIPAL
+          <BarraSuperiorManutencao />
+          <PrincipalManutencao />
       </div> 
     
     </div>
