@@ -1,0 +1,80 @@
+{
+  "itens": [
+    {
+      "descricao": "rewr",
+      "id": 16,
+      "intervalo_km": 423,
+      "intervalo_prazo": 42,
+      "ultima_troca_data": "2025-12-16",
+      "ultima_troca_km": 3412,
+      "veiculo": "NaN"
+    },
+    {
+      "descricao": "Óleo do motor",
+      "id": 17,
+      "intervalo_km": 20000,
+      "intervalo_prazo": 12,
+      "ultima_troca_data": "2023-12-03",
+      "ultima_troca_km": 10000,
+      "veiculo": 3
+    },
+    {
+      "descricao": "kit de embreagem",
+      "id": 21,
+      "intervalo_km": 100000,
+      "intervalo_prazo": 60,
+      "ultima_troca_data": "2026-04-09",
+      "ultima_troca_km": 50000,
+      "veiculo": 7
+    },
+    {
+      "descricao": "Óleo do motor",
+      "id": 24,
+      "intervalo_km": 10000,
+      "intervalo_prazo": 12,
+      "ultima_troca_data": "2026-04-12",
+      "ultima_troca_km": 20000,
+      "veiculo": 1
+    },
+    {
+      "descricao": "32",
+      "id": 25,
+      "intervalo_km": 23,
+      "intervalo_prazo": 43,
+      "ultima_troca_data": "2050-02-01",
+      "ultima_troca_km": 21,
+      "veiculo": 7
+    },
+    {
+      "descricao": "Correia dentada",
+      "id": 26,
+      "intervalo_km": 40000,
+      "intervalo_prazo": 60,
+      "ultima_troca_data": "2020-12-03",
+      "ultima_troca_km": 0,
+      "veiculo": 3
+    }
+  ],
+  "veiculos": [
+    {
+      "descricao": "Ferrari F55",
+      "id": 1
+    },
+    {
+      "descricao": "Fiat 147GL",
+      "id": 3
+    },
+    {
+      "descricao": "Nissan Versa",
+      "id": 7
+    },
+    {
+      "descricao": "Nissan Sentra",
+      "id": 8
+    },
+    {
+      "descricao": "Ford Focus",
+      "id": 9
+    }
+  ]
+}

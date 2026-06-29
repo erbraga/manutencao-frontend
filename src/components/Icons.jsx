@@ -4,7 +4,7 @@ export function IconePrincipal({className}){
             <svg
                 fill="currentColor" 
                 viewBox="0 0 41.378 41.378" 
-                xml:space="preserve" 
+                xmlSpace="preserve" 
                 width="24px" >
                 <g id="SVGRepo_bgCarrier" stroke-width="0"/>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" 
@@ -177,7 +177,7 @@ export function IconeVeiculo2({className}){
             <svg 
                 fill="currentColor" 
                 height="24px" 
-                width="24px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 128 128" xml:space="preserve">
+                width="24px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 128 128" xmlSpace="preserve">
 
 <g id="SVGRepo_bgCarrier" stroke-width="0"/>
 
@@ -199,7 +199,7 @@ export function IconeVeiculo({className}){
    version="1.1"
    id="Layer_1"
    viewBox="0 0 48 48"
-   xml:space="preserve"
+   xmlSpace="preserve"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"><defs
    id="defs1" />
@@ -267,8 +267,8 @@ export function IconeEditar({className}){
         <button className={className}>
             <svg
                 xmlns="http://www.w3.org/2000/svg" 
-                width="16px"
-                height="16px" 
+                width="24px"
+                height="24px" 
                 viewBox="0 0 24 24"
                 fill="currentColor"
                 stroke="none" 
@@ -287,8 +287,8 @@ export function IconeDeletar({className}){
         <button className={className}>
             <svg 
                 xmlns="http://www.w3.org/2000/svg" 
-                width="16px"
-                height="16px" 
+                width="24px"
+                height="24px" 
                 viewBox="0 0 24 24"
                 fill="currentColor"
                 stroke="none" 
@@ -297,6 +297,23 @@ export function IconeDeletar({className}){
                     fill="none"/>
                 <path d="M8 9h8v10H8z" opacity=".3"/>
                 <path d="M15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"/>
+            </svg>
+        </button>
+    );
+}
+
+export function IconeSalvar({className}){
+    return(
+        <button className={className}>
+            <svg 
+                height="24px" 
+                viewBox="0 0 24 24" 
+                width="24px" 
+                fill="currentColor">
+                <path d="M0 0h24v24H0V0z" 
+                    fill="none"/>
+                <path d="M17 3H3v18h18V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 
+                    1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>            
             </svg>
         </button>
     );
