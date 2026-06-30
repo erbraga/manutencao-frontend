@@ -34,10 +34,10 @@ function Cabecalho(){
                   hover:bg-slate-300 focus:bg-blue-700 focus:text-white 
                   cursor-pointer" />
               </NavLink>
-              {/* <Link to= '/itens'>
+              <Link to= '/itens'>
                 <IconeItemManutencao className="m-1 p-1 rounded-full  text-stone-500 
                   hover:bg-slate-300 focus:bg-blue-700 focus:text-white w-10" />
-              </Link> */}
+              </Link>
               <NavLink to='/veiculos'>
                 <IconeVeiculo className="m-1 p-1 rounded-full text-stone-500 
                   hover:bg-slate-300 focus:bg-blue-700 focus:text-white

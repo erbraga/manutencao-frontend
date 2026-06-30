@@ -1,4 +1,4 @@
-import {BarraSuperior, BarraSuperiorItens, PrincipalItens} from '../components/tela';
+import {BarraSuperior, BarraSuperiorItens, PrincipalItens} from '../components/Tela';
 
 export default function Itens() {
 

@@ -1,4 +1,4 @@
-import {BarraSuperior, BarraSuperiorVeiculos, PrincipalVeiculos} from '../components/tela';
+import {BarraSuperior, BarraSuperiorVeiculos, PrincipalVeiculos} from '../components/Tela';
 
 export default function Veiculos() {
 

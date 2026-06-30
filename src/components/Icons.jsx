@@ -249,9 +249,9 @@ export function IconeIncluir({className}){
     );
 }
 
-export function IconeEditar({className}){
+export function IconeEditar({className, onClick}){
     return(
-        <button className={className}>
+        <button className={className} onClick = {onClick}>
             <svg
                 width="24px"
                 height="24px" 
@@ -268,9 +268,9 @@ export function IconeEditar({className}){
     );
 }
 
-export function IconeDeletar({className}){
+export function IconeDeletar({className, onClick}){
     return(
-        <button className={className}>
+        <button className={className} onClick = {onClick}>
             <svg 
                 width="24px"
                 height="24px" 
