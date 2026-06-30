@@ -4,12 +4,11 @@ export function IconePrincipal({className}){
             <svg
                 fill="currentColor" 
                 viewBox="0 0 41.378 41.378" 
-                xmlSpace="preserve" 
+
                 width="24px" >
-                <g id="SVGRepo_bgCarrier" stroke-width="0"/>
-                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" 
-                    stroke-linejoin="round"/>
-                <g id="SVGRepo_iconCarrier"> 
+                
+                
+                <g> 
                 <g> <g> 
                 <path d="M40.897,16.601c-0.257-2.263-6.35,0-6.35,0l-0.359,
                     3.22c-0.133-0.076-0.268-0.15-0.41-0.213l-1.539-6.715 
@@ -43,7 +42,6 @@ export function IconeModoClaro({className}){
     return(
         <button className={className}>
             <svg 
-                xmlns="http://www.w3.org/2000/svg" 
                 viewBox="0 -960 960 960" 
                 width="24px"
                 fill="currentColor">
@@ -58,7 +56,6 @@ export function IconeModoEscuro({className}){
     return(
         <button className={className}>
             <svg 
-                xmlns="http://www.w3.org/2000/svg" 
                 viewBox="0 -960 960 960" 
                 width="24px"
                 fill="currentColor">
@@ -73,7 +70,6 @@ export function IconeModoAutomatico({className}){
     return(
         <button className={className}>
             <svg 
-                xmlns="http://www.w3.org/2000/svg"  
                 viewBox="0 -960 960 960" 
                 width="24px"
                 height="24px"
@@ -94,7 +90,6 @@ export function IconeHome({className}){
     return(
         <button className={className}>
             <svg 
-                xmlns="http://www.w3.org/2000/svg" 
                 viewBox="0 -960 960 960" 
                 width="24px"
                 height="24px"
@@ -110,13 +105,8 @@ export function IconeItemManutencao({className}){
     return(
         <button className={className}>
             <svg
-
                 viewBox="0 0 24 24"
                 fill="currentColor">
-                <style
-                type="text/css"
-                id="style1">
-                </style>
                 <g transform="matrix(0.04438645,0,0,0.02929677,0.63706945,5.0000469)">
                     <path d="m 104.426,139.813 83.563,83.781 c 14.344,-13.766 26.781,
                         -25.703 36.109,-34.672 L 139.801,104.422 129.488,58.703 54.27,
@@ -153,19 +143,16 @@ export function IconeVeiculos({className}){
                 fill="currentColor" 
                     width="24px" 
                     height="24px" 
-                    viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-
-<g id="SVGRepo_bgCarrier" stroke-width="0"/>
-
-<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-
-<g id="SVGRepo_iconCarrier">
-
-<title>ionicons-v5-d</title>
-
-<path d="M447.68,220.78a16,16,0,0,0-1-3.08l-37.78-88.16C400.19,109.17,379,96,354.89,96H157.11c-24.09,0-45.3,13.17-54,33.54L65.29,217.7A15.72,15.72,0,0,0,64,224V400a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V384H384v16a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V224A16.15,16.15,0,0,0,447.68,220.78ZM144,320a32,32,0,1,1,32-32A32,32,0,0,1,144,320Zm224,0a32,32,0,1,1,32-32A32,32,0,0,1,368,320ZM104.26,208l28.23-65.85C136.11,133.69,146,128,157.11,128H354.89c11.1,0,21,5.69,24.62,14.15L407.74,208Z"/>
-
-</g>
+                    viewBox="0 0 512 512">
+            <g id="">
+                <path d="M447.68,220.78a16,16,0,0,0-1-3.08l-37.78-88.16C400.19,109.17,379,
+                    96,354.89,96H157.11c-24.09,0-45.3,13.17-54,33.54L65.29,217.7A15.72,15.72,0,
+                    0,0,64,224V400a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V384H384v16a16,16,0,0,
+                    0,16,16h32a16,16,0,0,0,16-16V224A16.15,16.15,0,0,0,447.68,220.78ZM144,320a32,
+                    32,0,1,1,32-32A32,32,0,0,1,144,320Zm224,0a32,32,0,1,1,32-32A32,32,0,0,1,368,
+                    320ZM104.26,208l28.23-65.85C136.11,133.69,146,128,157.11,128H354.89c11.1,0,21
+                    ,5.69,24.62,14.15L407.74,208Z"/>
+            </g>
             </svg>
         </button>
     );
@@ -177,13 +164,20 @@ export function IconeVeiculo2({className}){
             <svg 
                 fill="currentColor" 
                 height="24px" 
-                width="24px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 128 128" xmlSpace="preserve">
-
-<g id="SVGRepo_bgCarrier" stroke-width="0"/>
-
-<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-
-<g id="SVGRepo_iconCarrier"> <path d="M32.6,104.1v9.3c0,5.2-4.2,9.3-9.3,9.3c-5.1,0-9.3-4.1-9.3-9.3v-9.3H4.6V73.7v0c0-6.7,4.5-12.2,10.6-13.9l10.9-25.9 c1.6-3.8,5.3-6.5,9.7-6.5h55.7c4.4,0,8.1,2.7,9.7,6.5L112,59.8c6.1,1.7,10.6,7.2,10.6,13.9l0,0v30.4h-9.5l0,9.3 c0,5.2-4.2,9.3-9.3,9.3c-5.2,0-9.3-4.1-9.3-9.3l0-9.3H32.6z M23.9,87.4c5.2,0,9.4-4.2,9.4-9.4c0-5.2-4.2-9.4-9.4-9.4 c-5.2,0-9.4,4.2-9.4,9.4C14.5,83.2,18.7,87.4,23.9,87.4 M112.1,78c0-5.2-4.2-9.4-9.4-9.4c-5.2,0-9.4,4.2-9.4,9.4 c0,5.2,4.2,9.4,9.4,9.4C107.9,87.4,112.1,83.2,112.1,78 M102.7,59.3l-9.3-22.4C93,35.8,91.9,35,90.6,35h-54c-1.2,0-2.3,0.8-2.7,1.9 l-9.3,22.4H102.7z"/> </g>
+                width="24px"
+                viewBox="0 0 128 128">
+                <g> 
+                    <path d="M32.6,104.1v9.3c0,5.2-4.2,9.3-9.3,9.3c-5.1,
+                    0-9.3-4.1-9.3-9.3v-9.3H4.6V73.7v0c0-6.7,4.5-12.2,
+                    10.6-13.9l10.9-25.9 c1.6-3.8,5.3-6.5,9.7-6.5h55.7c4.4,0,8.1,2.7,9.7,
+                    6.5L112,59.8c6.1,1.7,10.6,7.2,10.6,13.9l0,0v30.4h-9.5l0,9.3 
+                    c0,5.2-4.2,9.3-9.3,9.3c-5.2,0-9.3-4.1-9.3-9.3l0-9.3H32.6z 
+                    M23.9,87.4c5.2,0,9.4-4.2,9.4-9.4c0-5.2-4.2-9.4-9.4-9.4 
+                    c-5.2,0-9.4,4.2-9.4,9.4C14.5,83.2,18.7,87.4,23.9,87.4 
+                    M112.1,78c0-5.2-4.2-9.4-9.4-9.4c-5.2,0-9.4,4.2-9.4,9.4 
+                    c0,5.2,4.2,9.4,9.4,9.4C107.9,87.4,112.1,83.2,112.1,78 
+                    M102.7,59.3l-9.3-22.4C93,35.8,91.9,35,90.6,35h-54c-1.2,0-2.3,
+                    0.8-2.7,1.9 l-9.3,22.4H102.7z"/> </g>
             </svg>
         </button>
     );
@@ -193,31 +187,26 @@ export function IconeVeiculo({className}){
     return(
         <button className={className}>
             <svg
-   fill="currentColor"
-   height="24px"
-   width="24px"
-   version="1.1"
-   id="Layer_1"
-   viewBox="0 0 48 48"
-   xmlSpace="preserve"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg"><defs
-   id="defs1" />
-
-<g
-   id="SVGRepo_bgCarrier"
-   stroke-width="0" />
-
-<g
-   id="SVGRepo_tracerCarrier"
-   stroke-linecap="round"
-   stroke-linejoin="round" />
-
-<g
-   id="veiculo"
-   transform="matrix(0.33898305,0,0,0.31479538,2.440678,1.3746066)"> <path
-   d="m 32.6,104.1 v 9.3 c 0,5.2 -4.2,9.3 -9.3,9.3 -5.1,0 -9.3,-4.1 -9.3,-9.3 v -9.3 H 4.6 v -30.4 0 C 4.6,67 9.1,61.5 15.2,59.8 L 26.1,33.9 c 1.6,-3.8 5.3,-6.5 9.7,-6.5 h 55.7 c 4.4,0 8.1,2.7 9.7,6.5 L 112,59.8 c 6.1,1.7 10.6,7.2 10.6,13.9 v 0 30.4 h -9.5 v 9.3 c 0,5.2 -4.2,9.3 -9.3,9.3 -5.2,0 -9.3,-4.1 -9.3,-9.3 v -9.3 z M 23.9,87.4 c 5.2,0 9.4,-4.2 9.4,-9.4 0,-5.2 -4.2,-9.4 -9.4,-9.4 -5.2,0 -9.4,4.2 -9.4,9.4 0,5.2 4.2,9.4 9.4,9.4 M 112.1,78 c 0,-5.2 -4.2,-9.4 -9.4,-9.4 -5.2,0 -9.4,4.2 -9.4,9.4 0,5.2 4.2,9.4 9.4,9.4 5.2,0 9.4,-4.2 9.4,-9.4 M 102.7,59.3 93.4,36.9 C 93,35.8 91.9,35 90.6,35 h -54 c -1.2,0 -2.3,0.8 -2.7,1.9 l -9.3,22.4 z"
-   id="path1" /> </g>
+                fill="currentColor"
+                height="24px"
+                width="24px"
+                viewBox="0 0 48 48">
+                <g
+                    transform="matrix(0.33898305,0,0,0.31479538,2.440678,1.3746066)"> 
+                    <path
+                        d="m 32.6,104.1 v 9.3 c 0,5.2 -4.2,9.3 -9.3,9.3 -5.1,0 -9.3,-4.1 
+                        -9.3,-9.3 v -9.3 H 4.6 v -30.4 0 C 4.6,67 9.1,61.5 15.2,59.8 
+                        L 26.1,33.9 c 1.6,-3.8 5.3,-6.5 9.7,-6.5 h 55.7 c 4.4,0 8.1,2.7 
+                        9.7,6.5 L 112,59.8 c 6.1,1.7 10.6,7.2 10.6,13.9 v 0 30.4 h -9.5 
+                        v 9.3 c 0,5.2 -4.2,9.3 -9.3,9.3 -5.2,0 -9.3,-4.1 -9.3,-9.3 v 
+                        -9.3 z M 23.9,87.4 c 5.2,0 9.4,-4.2 9.4,-9.4 0,-5.2 -4.2,-9.4 
+                        -9.4,-9.4 -5.2,0 -9.4,4.2 -9.4,9.4 0,5.2 4.2,9.4 9.4,9.4 M 
+                        112.1,78 c 0,-5.2 -4.2,-9.4 -9.4,-9.4 -5.2,0 -9.4,4.2 
+                        -9.4,9.4 0,5.2 4.2,9.4 9.4,9.4 5.2,0 9.4,-4.2 9.4,-9.4 M 102.7,
+                        59.3 93.4,36.9 C 93,35.8 91.9,35 90.6,35 h -54 c -1.2,0 -2.3,0.8 
+                        -2.7,1.9 l -9.3,22.4 z"
+                    /> 
+                </g>
             </svg>
         </button>
     );
@@ -227,7 +216,6 @@ export function IconeAtualizar({className}){
     return(
         <button className={className}>
             <svg 
-                xmlns="http://www.w3.org/2000/svg" 
                 height="24px" 
                 viewBox="0 0 24 24" 
                 width="24px" 
@@ -246,7 +234,6 @@ export function IconeIncluir({className}){
     return(
         <button className={className}>
             <svg 
-                xmlns="http://www.w3.org/2000/svg" 
                 viewBox="0 0 24 24"
                 width="16px"
                 height="16px"
@@ -266,7 +253,6 @@ export function IconeEditar({className}){
     return(
         <button className={className}>
             <svg
-                xmlns="http://www.w3.org/2000/svg" 
                 width="24px"
                 height="24px" 
                 viewBox="0 0 24 24"
@@ -286,7 +272,6 @@ export function IconeDeletar({className}){
     return(
         <button className={className}>
             <svg 
-                xmlns="http://www.w3.org/2000/svg" 
                 width="24px"
                 height="24px" 
                 viewBox="0 0 24 24"

@@ -11,7 +11,6 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
-        
         <Route path="/" element={<App />}>
           <Route index element={<Navigate to="/manutencao" replace />} />
           <Route path='/manutencao' element={<Manutencao />} />

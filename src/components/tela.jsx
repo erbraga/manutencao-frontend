@@ -1,3 +1,6 @@
+import {Link} from 'react-router';
+
+import { useState, useEffect } from 'react';
 
 import {IconePrincipal, IconeHome, IconeItemManutencao, IconeVeiculos, 
   IconeModoAutomatico, IconeAtualizar, IconeEditar, IconeDeletar, 
@@ -39,12 +42,13 @@ export function BarraSuperiorManutencao(){
               <InputData name = "data" label = "data" className='flex flex-col w-1/2' />
               <InputNumero name = "quilometragem" label = "quilometragem" 
                 className='flex flex-col w-1/2' />
-            </div>
-            <button className='w-full flex flex-row  text-white bg-sky-500 
-              hover:bg-cyan-400 border border-sky-700 rounded-xl p-1 items-center justify-center'>
-              <IconeSalvar className="p-1 rounded-full" />
+            </div>           
+            <Link to= '/itens' className='w-full flex flex-row  text-white bg-sky-500 
+              hover:bg-cyan-400 border border-sky-700 rounded-xl p-1 items-center 
+              justify-center'>
+              <IconeSalvar className="p-1 rounded-full cursor-pointer" />
                 <span className=''>Cadastrar item de manutenção</span>
-            </button>
+            </Link>
         </div>
       </div>
     </div>
@@ -103,6 +107,7 @@ export function PrincipalManutencao(){
 }
 
 function ManutencaoTabelaDesktop({className}){
+
   return(
     <div className={className}>
       <table className='mt-1 w-full border border-slate-400 rounded-3xl shadow-xl/10 bg-white 
@@ -134,11 +139,13 @@ function ManutencaoTabelaDesktop({className}){
                 <td className='text-center'>{item.intervalo_prazo}</td>
                 <td className='text-center'>{item.ultima_troca_km}</td>
                 <td className='text-center'>{item.ultima_troca_data}</td>
-                <td className='text-center'></td>
                 <td className='text-center'>{item.ultima_troca_km + item.intervalo_km}</td>
+                <td className='text-center'><DobraNumero numero = '1' /></td>
                 <td className='text-center'>
-                  <IconeAtualizar className="m-1 p-2 rounded-full text-white
-                    hover:bg-sky-500 bg-cyan-400" />
+                  <Link to ="#">
+                    <IconeAtualizar className="m-1 p-2 rounded-full text-white
+                      hover:bg-sky-500 bg-cyan-400 cursor-pointer" />
+                  </Link>
                 </td>
             </tr>
           ))}
@@ -152,10 +159,10 @@ function ManutencaoTabelaMobile({className}){
   return(
     <div className='md:hidden paisagem:grid paisagem:grid-cols-2 paisagem:gap-2'>
       {dados.itens.map((item) => (
-        <article className='w-full mx-auto bg-white border border-slate-400 
+        <article key={item.id} className='w-full mx-auto bg-white border border-slate-400 
           rounded-3xl p-4 shadow-xl mb-4'>
           {/* CABEÇALHO DO CARD (Nome do item e status) */}
-          <div key={item.id} className='flex justify-between items-start border-b border-slate-300 
+          <div className='flex justify-between items-start border-b border-slate-300 
             pb-1 mb-1'>
             <h3 className="text-xl font-bold">{item.descricao}</h3>
             {/* Badge de Status/Ações */}
@@ -205,7 +212,7 @@ export function PrincipalVeiculos(){
   return(
       <section className='w-full'>
         <InputTextoBotao name="veiculo" label="Descrição do veículo" 
-          className='flex flex-col p-1 mb-2 mt-6 w-full' />
+          className='flex flex-col p-1 mb-2 mt-6 w-full cursor-pointer' />
         <VeiculosTabela className = 'w-full' />
 -     </section>
   )
@@ -217,15 +224,15 @@ function VeiculosTabela({className}){
       md:shadow-xl'>
       <ul className='md:m-4'>
         {dados.veiculos.map((veiculo) => (
-          <li className='flex flex-row justify-between mx-auto bg-white border 
+          <li key={veiculo.id} className='flex flex-row justify-between mx-auto bg-white border 
             border-slate-400 md:border-0 rounded-2xl shadow-xl md:shadow-none p-2 
             mb-3 md:mb-0 md:border-b md:border-b-slate-300 md:rounded-b-none 
             items-center hover:bg-slate-200 md:hover:rounded-none'>
-            <h3 key={veiculo.id} className='text-xl'>
+            <h3 className='text-xl'>
               {veiculo.descricao}</h3>
             <div>
-              <IconeEditar className="m-1 p-1 rounded-full hover:bg-slate-300" />
-              <IconeDeletar className="m-1 p-1 rounded-full hover:bg-slate-300" />
+              <IconeEditar className="m-1 p-1 rounded-full hover:bg-slate-300 cursor-pointer" />
+              <IconeDeletar className="m-1 p-1 rounded-full hover:bg-slate-300 cursor-pointer" />
             </div>
           </li>
         ))}
@@ -256,17 +263,19 @@ function ItensTabela({className}){
         className='' />
       <InputData name = "UltimaTrocaData" label = "Data da última troca" 
         className='' />
-      <div className=' flex flex-row gap-2 md:col-span-2 md:ml-12 md:justify-end'>
-          <button className='w-full flex flex-row md:w-1/4 text-white bg-blue-600 
-            hover:bg-blue-400 border border-blue-800 rounded-xl p-2 gap-2 items-center'>
-            <IconeSalvar className="" />
+      <div className=' flex flex-row gap-2 md:col-span-2 md:ml-12 md:justify-end md:mt-12'>
+          <a className='w-full flex flex-row md:w-1/4 text-white bg-sky-500 
+            hover:bg-cyan-400 border border-sky-700 rounded-xl p-2 gap-2 items-center
+            cursor-pointer'>
+            <IconeSalvar className="cursor-pointer" />
               <span className=''>Salvar</span>
-          </button>
-          <button className='w-full flex flex-row md:w-1/4 text-white bg-blue-600 
-            hover:bg-blue-400 border border-blue-800 rounded-xl p-2 gap-2 items-center'>
-            <IconeDeletar className="" />
+          </a>
+          <a className='w-full flex flex-row md:w-1/4 text-white bg-red-500 
+            hover:bg-red-400 border border-red-700 rounded-xl p-2 gap-2 items-center
+            cursor-pointer'>
+            <IconeDeletar className="cursor-pointer" />
               <span className=''>Excluir</span>
-          </button>
+          </a>
       </div>
     </section>
     )
@@ -326,11 +335,11 @@ function InputTextoBotao({label, name, className}){
         border-slate-400 rounded-xl w-full md:w-3/4' />
       
       
-      <button className='w-full flex flex-row md:w-1/4 text-white bg-sky-500 
+      <a className='w-full flex flex-row md:w-1/4 text-white bg-sky-500 
         hover:bg-cyan-400 border border-sky-700 rounded-xl p-2 gap-2 items-center'>
-        <IconeSalvar className="" />
+        <IconeSalvar className="cursor-pointer" />
         <span className=''>Salvar</span>
-      </button>
+      </a>
       
       </div>
         
@@ -338,5 +347,12 @@ function InputTextoBotao({label, name, className}){
   );
 }
 
-
+function DobraNumero({numero}){
+  const valor = Number(numero) * 2;
+  return(
+    <div>
+    {valor}
+    </div>
+  );
+}
 

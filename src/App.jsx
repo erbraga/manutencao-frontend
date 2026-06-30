@@ -1,6 +1,6 @@
 
 // import './index.css';
-import {Link, Outlet} from 'react-router'
+import {Link, NavLink, Outlet} from 'react-router'
 import {IconePrincipal,IconeHome,IconeItemManutencao,IconeVeiculo} from './components/Icons';
 
 export default function App() {
@@ -29,18 +29,20 @@ function Cabecalho(){
           </div>
           <div className='m-1 p-2 flex flex-row gap-2'>
             <nav className='border border-slate-400 rounded-full flex flex-row'>
-              <Link to= '/manutencao'>
+              <NavLink to= '/manutencao'>
                 <IconeHome className="m-1 p-1 rounded-full  text-stone-500 
-                  hover:bg-slate-300 focus:bg-blue-700 focus:text-white " />
-              </Link>
-              <Link to= '/itens'>
+                  hover:bg-slate-300 focus:bg-blue-700 focus:text-white 
+                  cursor-pointer" />
+              </NavLink>
+              {/* <Link to= '/itens'>
                 <IconeItemManutencao className="m-1 p-1 rounded-full  text-stone-500 
                   hover:bg-slate-300 focus:bg-blue-700 focus:text-white w-10" />
-              </Link>
-              <Link to='/veiculos'>
+              </Link> */}
+              <NavLink to='/veiculos'>
                 <IconeVeiculo className="m-1 p-1 rounded-full text-stone-500 
-                  hover:bg-slate-300 focus:bg-blue-700 focus:text-white" />
-              </Link>
+                  hover:bg-slate-300 focus:bg-blue-700 focus:text-white
+                  cursor-pointer" />
+              </NavLink>
             </nav>
             {/* <div className='border border-slate-400 rounded-full'>
               <IconeModoAutomatico className="p-3 rounded-full  text-black bg-white hover:bg-slate-300" />
