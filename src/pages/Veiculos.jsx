@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
 import {InputTextoBotao, BarraSuperiorTexto} from '../components/Tela';
 import {IconeEditar, IconeDeletar} from '../components/Icons'
@@ -80,6 +81,7 @@ function VeiculosPrincipal(){
 }
 
 function VeiculosTabela({ className, veiculos, excluirVeiculo, editarVeiculo }) {
+  const navigate = useNavigate()
   return (
     <div className="md:bg-white md:border md:border-slate-400 md:rounded-3xl md:shadow-xl">
       <ul className="md:m-4">
@@ -94,7 +96,8 @@ function VeiculosTabela({ className, veiculos, excluirVeiculo, editarVeiculo }) 
             <div className="flex gap-2 mt-1 pt-1 col-span-2 menor:max-paisagem:col-span-3
               w-full md:w-1/4">
               <button className="w-full bg-lime-100 border border-lime-300
-              font-medium py-2 rounded-xl text-xs justify-center">
+              font-medium py-2 rounded-xl text-xs justify-center"
+              onClick={() => navigate(`/manutencao?veiculoId=${veiculo.id}`)}>
                 Manutenções
               </button>
                 <button className="w-full bg-blue-100 border  border-blue-300 

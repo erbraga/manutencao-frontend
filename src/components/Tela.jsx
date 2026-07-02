@@ -74,35 +74,35 @@ export function Selecao({label, value, name, className, opcoes, onChange}){
   );
 }
 
-export function InputData({label, name, className, onChange, opcoes}){
+export function InputData({label, name, className, onChange, opcoes, value}){
   return(
     <div className = {className}>
       <label htmlFor={name}>{label}</label>
-      <input type="date" name={name} id={name} className='p-1 bg-white border 
-        border-slate-400 rounded-xl w-full h-8' 
+      <input type="date" name={name} id={name} value = {value}
+        className='p-1 bg-white border border-slate-400 rounded-xl w-full h-8' 
       onChange={onChange}/>
     </div>
 
   );
 }
 
-export function InputNumero({label, name, className, onChange}){
+export function InputNumero({label, name, className, onChange, value}){
   return(
     <div className = {className}>
       <label htmlFor={name}>{label}</label>
-      <input type="number" name={name} id={name} className='p-1 bg-white border 
-        border-slate-400 rounded-xl w-full h-8'
+      <input type="number" name={name} id={name} value = {value}
+      className='p-1 bg-white border border-slate-400 rounded-xl w-full h-8'
         onChange={onChange} />
     </div>
   );
 }
 
-export function InputTexto({label, name, className, onChange}){
+export function InputTexto({label, name, className, onChange, value}){
   return(
     <div className = {className}>
       <label htmlFor={name}>{label}</label>
-      <input name={name} id={name} className='p-1 bg-white border 
-        border-slate-400 rounded-xl w-full'
+      <input name={name} id={name} value = {value}
+        className='p-1 bg-white border border-slate-400 rounded-xl w-full'
         onChange={onChange} />
     </div>
   );

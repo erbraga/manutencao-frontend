@@ -27,7 +27,7 @@ function Cabecalho(){
               text-white" />
             <h1 className='p-1 font-bold text-sm md:text-2xl'>Manutenção de veículos</h1>
           </div>
-          <div className='m-1 p-2 flex flex-row gap-2'>
+          {/* <div className='m-1 p-2 flex flex-row gap-2'>
             <nav className='border border-slate-400 rounded-full flex flex-row'>
               <NavLink to='/veiculos'>
                 <IconeVeiculo className="m-1 p-1 rounded-full text-stone-500 
@@ -44,10 +44,10 @@ function Cabecalho(){
                   hover:bg-slate-300 focus:bg-blue-700 focus:text-white w-10" />
               </Link>
             </nav>
-            {/* <div className='border border-slate-400 rounded-full'>
+            <div className='border border-slate-400 rounded-full'>
               <IconeModoAutomatico className="p-3 rounded-full  text-black bg-white hover:bg-slate-300" />
-            </div> */}
-          </div>
+            </div>
+          </div> */}
         </div>
     </header>
   );

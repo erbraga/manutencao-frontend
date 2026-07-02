@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams, useNavigate } from 'react-router';
 import {IconeAtualizar, IconeEditar, IconeDeletar} from '../components/Icons';
 import {BarraSuperiorTexto, Selecao, InputData, InputNumero, FormatarDataBr, SomarPrazo,
   BlocoVertical, BlocoHorizontal
@@ -14,6 +15,10 @@ export default function Itens() {
 }
 
 function ManutencaoPrincipal(){
+  const [searchParams] = useSearchParams();
+  const veiculoIdViaUrl = searchParams.get('veiculoId');
+  const navigate = useNavigate();
+  
   const [itens, setItens] = useState(() => {
     const armazenados = localStorage.getItem("itensManutencao");
     return armazenados ? JSON.parse(armazenados) : [];
@@ -24,17 +29,39 @@ function ManutencaoPrincipal(){
     return armazenados ? JSON.parse(armazenados) : [];
   });
 
-  const [veiculoSelecionado, setVeiculoSelecionado] = useState(null);
+  const [veiculoSelecionado, setVeiculoSelecionado] = useState(veiculoIdViaUrl || "");
 
-  const handleSelecionarVeiculo = (id) => {
-    const veiculo = veiculos.find(v => v.id === Number(id));
-    setVeiculoSelecionado(veiculo);
-  };
+  useEffect(() => {
+    setVeiculoSelecionado(veiculoIdViaUrl || "");
+  }, [veiculoIdViaUrl]);
+
+
+  const itensFiltrados = veiculoSelecionado 
+    ? itens.filter(item => {
+        // Garante que o ID do item exista antes de converter para String
+        const itemVeiculoId = item.veiculoId ? String(item.veiculoId).trim() : "";
+        const selecionadoId = String(veiculoSelecionado).trim();
+        return itemVeiculoId === selecionadoId;
+      })
+    : itens;
+
+  // const handleSelecionarVeiculo = (id) => {
+  //   const veiculo = veiculos.find(v => v.id === Number(id));
+  //   setVeiculoSelecionado(veiculo);
+  // };
+
+  const editarItem = (id) => {
+    navigate(`/itens?veiculoId=${veiculoSelecionado}&itemId=${id}`);
+  }
 
   const excluirItem = (id) => {
     const novos = itens.filter((i) => i.id !== id);
     setItens(novos);
     localStorage.setItem("itensManutencao", JSON.stringify(novos));
+  };
+
+  const handleNovoItem = () => {
+    navigate(`/itens?veiculoId=${veiculoSelecionado}`);
   };
 
   return(
@@ -47,17 +74,21 @@ function ManutencaoPrincipal(){
           como data e quilometragem da próxima troca.'
         />
 
-        <div className='flex flex-col md:flex-row gap-2 mt-4 w-full'>
-          <Selecao label = "Veículo" name = "veiculo" className="flex flex-col 
-            col-span-full md:col-span-1 md:w-3/4"
-            opcoes={veiculos.map(v => ({ valor: v.id, texto: v.descricao }))}
-            value={veiculoSelecionado}
-            onChange={setVeiculoSelecionado}
-          />
-          <div className='flex flex-row gap-2 md:w-1/4'>
+        <div className='flex flex-col md:flex-row gap-2 mt-4 py-2 w-full items-end'>
+          <h3 className="flex flex-col w-full md:w-2/3 bg-white rounded-xl border 
+          border-slate-400 h-8 p-1 font-bold text-center">
+            {veiculos.find(v => v.id === Number(veiculoSelecionado))?.descricao}
+          </h3>
+          
+          <div className='flex flex-row gap-2 w-full md:w-1/3 items-end'>
             < InputData label = "Data" name = "data" className="flex flex-col w-1/2"/>
             < InputNumero label = "Quilometragem" name = "data" 
               className="flex flex-col w-1/2"/>
+            <button className='flex flex-col w-16 h-16 md:h-8 bg-red-400 rounded-full md:rounded-xl 
+            text-white font-bold text-center
+            fixed bottom-8 right-8 md:relative md:bottom-0 md:right-0'
+            onClick={handleNovoItem}>
+            +</button>
           </div>
         </div>
       </div>
@@ -65,20 +96,22 @@ function ManutencaoPrincipal(){
       {/* Tabela Desktop */}
       <ManutencaoTabelaDesktop 
         className='hidden md:table w-full' 
-        itens={itens} 
+        itens={itensFiltrados}
+        editarItem={editarItem}
         excluirItem={excluirItem}
       />
 
       {/* Cards Mobile */}
       <ManutencaoTabelaMobile 
         className='md:hidden paisagem:grid paisagem:grid-cols-2 paisagem:gap-2' 
-        itens={itens} 
+        itens={itensFiltrados}
+        editarItem={editarItem}
         excluirItem={excluirItem}
       />
     </section>
   )
 }
-function ManutencaoTabelaDesktop({className, itens, excluirItem}){
+function ManutencaoTabelaDesktop({className, itens, editarItem, excluirItem}){
 
   return(
     <div className={className}>
@@ -115,7 +148,7 @@ function ManutencaoTabelaDesktop({className, itens, excluirItem}){
                 <td className='text-center'>{item.ultima_troca_km + item.intervalo_km}</td>
                 <td className='text-center'><SomarPrazo prazo = {item.intervalo_prazo} 
                   data = {item.ultima_troca_data}/></td>
-                <td className=''>{item.veiculo}</td>
+                <td className=''>{item.veiculoId}</td>
                 <td className='text-center w-40'>
                   <IconeAtualizar 
                     className="m-1 p-1 rounded-full hover:bg-teal-400 cursor-pointer" 
@@ -123,7 +156,7 @@ function ManutencaoTabelaDesktop({className, itens, excluirItem}){
                   />
                   <IconeEditar 
                     className="m-1 p-1 rounded-full hover:bg-teal-400 cursor-pointer" 
-
+                    onClick={() => editarItem(item.id)}
                   />
                   <IconeDeletar
                     className="m-1 p-1 rounded-full hover:bg-teal-400 cursor-pointer"
@@ -138,7 +171,7 @@ function ManutencaoTabelaDesktop({className, itens, excluirItem}){
   )
 }
 
-function ManutencaoTabelaMobile({className, itens, excluirItem}){
+function ManutencaoTabelaMobile({className, itens, editarItem, excluirItem}){
   return(
     <div className='md:hidden paisagem:grid paisagem:grid-cols-2 paisagem:gap-2'>
       {itens.map((item) => (
@@ -175,7 +208,8 @@ function ManutencaoTabelaMobile({className, itens, excluirItem}){
                 Confirmar
               </button>
                 <button className="w-full bg-blue-100 border  border-blue-300 
-                font-medium py-2 rounded-xl text-xs justify-center">
+                font-medium py-2 rounded-xl text-xs justify-center"
+                onClick={() => editarItem(item.id)}>
                   Editar
               </button>
               <button className="w-full bg-red-100 border border-red-300 
