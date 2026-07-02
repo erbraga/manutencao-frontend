@@ -109,20 +109,22 @@ export function InputTexto({label, name, className, onChange, value}){
 }
 
 export function SomarPrazo({prazo, data}){
-  const dataISO = new Date(data);
-  const mes = dataISO.getMonth();
-  const diasMes = mes == 1 ? 27 : 29;
-  const mesCalculado = new Date(dataISO.setMonth(mes+Number(prazo)));
+  const dataISO = new Date(data + "T00:00:00");
+  dataISO.setMonth(dataISO.getMonth() + Number(prazo));
+  const dataCalculadaString = dataISO.toISOString().split('T')[0];
+  // const mes = dataISO.getMonth();
+  // const diasMes = mes == 1 ? 27 : 29;
+  // const mesCalculado = new Date(dataISO.setMonth(mes+Number(prazo)));
   //const dataCalculada = new Date(mesCalculado.setDate(diasMes)).toISOString();
   return (
     <span>
-      <FormatarDataBr data={dataISO} />
+      <FormatarDataBr data={dataCalculadaString} />
     </span>
   );
 }
 
 export function FormatarDataBr({data}) {
-  const dataObj = (data instanceof Date) ? data : new Date(data);
+  const dataObj = (data instanceof Date) ? data : new Date(data + "T00:00:00");
   const dataFormatada = dataObj.toLocaleDateString("pt-BR");
   return (
     <span>

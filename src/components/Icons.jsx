@@ -212,9 +212,9 @@ export function IconeVeiculo({className}){
     );
 }
 
-export function IconeAtualizar({className}){
+export function IconeAtualizar({className, onClick}){
     return(
-        <button className={className}>
+        <button className={className} onClick = {onClick}>
             <svg 
                 height="24px" 
                 viewBox="0 0 24 24" 

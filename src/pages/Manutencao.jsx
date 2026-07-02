@@ -31,6 +31,9 @@ function ManutencaoPrincipal(){
 
   const [veiculoSelecionado, setVeiculoSelecionado] = useState(veiculoIdViaUrl || "");
 
+  const [dataAtualizacao, setDataAtualizacao] = useState("");
+  const [kmAtualizacao, setKmAtualizacao] = useState("");
+
   useEffect(() => {
     setVeiculoSelecionado(veiculoIdViaUrl || "");
   }, [veiculoIdViaUrl]);
@@ -64,6 +67,31 @@ function ManutencaoPrincipal(){
     navigate(`/itens?veiculoId=${veiculoSelecionado}`);
   };
 
+  const atualizarItem = (id) => {
+    console.log("click")
+    // Validação básica para garantir que o usuário preencheu os campos do topo
+    if (!dataAtualizacao || !kmAtualizacao) {
+      alert("Por favor, preencha os campos de Data e Quilometragem no topo para atualizar a última troca.");
+      return;
+    }
+
+    // Mapeia os itens e altera apenas o item que corresponde ao ID clicado
+    const itensAtualizados = itens.map((item) => {
+      if (item.id === id) {
+        return {
+          ...item,
+          ultima_troca_data: dataAtualizacao,
+          ultima_troca_km: Number(kmAtualizacao)
+        };
+      }
+      return item;
+    });
+
+    // Atualiza o estado da tela e salva no localStorage
+    setItens(itensAtualizados);
+    localStorage.setItem("itensManutencao", JSON.stringify(itensAtualizados));
+  };
+
   return(
     <section className=''>
       <div className='flex flex-col flex-nowrap p-4 md:p-8 border 
@@ -81,8 +109,11 @@ function ManutencaoPrincipal(){
           </h3>
           
           <div className='flex flex-row gap-2 w-full md:w-1/3 items-end'>
-            < InputData label = "Data" name = "data" className="flex flex-col w-1/2"/>
+            < InputData label = "Data" name = "data" 
+              onChange={(e) => setDataAtualizacao(e.target.value)} 
+              className="flex flex-col w-1/2"/>
             < InputNumero label = "Quilometragem" name = "data" 
+              onChange={(e) => setKmAtualizacao(e.target.value)}
               className="flex flex-col w-1/2"/>
             <button className='flex flex-col w-16 h-16 md:h-8 bg-red-400 rounded-full md:rounded-xl 
             text-white font-bold text-center
@@ -97,6 +128,7 @@ function ManutencaoPrincipal(){
       <ManutencaoTabelaDesktop 
         className='hidden md:table w-full' 
         itens={itensFiltrados}
+        atualizarItem = {atualizarItem}
         editarItem={editarItem}
         excluirItem={excluirItem}
       />
@@ -105,13 +137,14 @@ function ManutencaoPrincipal(){
       <ManutencaoTabelaMobile 
         className='md:hidden paisagem:grid paisagem:grid-cols-2 paisagem:gap-2' 
         itens={itensFiltrados}
+        atualizarItem = {atualizarItem}
         editarItem={editarItem}
         excluirItem={excluirItem}
       />
     </section>
   )
 }
-function ManutencaoTabelaDesktop({className, itens, editarItem, excluirItem}){
+function ManutencaoTabelaDesktop({className, itens, atualizarItem, editarItem, excluirItem}){
 
   return(
     <div className={className}>
@@ -152,7 +185,7 @@ function ManutencaoTabelaDesktop({className, itens, editarItem, excluirItem}){
                 <td className='text-center w-40'>
                   <IconeAtualizar 
                     className="m-1 p-1 rounded-full hover:bg-teal-400 cursor-pointer" 
-
+                    onClick={() => atualizarItem(item.id)}
                   />
                   <IconeEditar 
                     className="m-1 p-1 rounded-full hover:bg-teal-400 cursor-pointer" 
@@ -171,7 +204,7 @@ function ManutencaoTabelaDesktop({className, itens, editarItem, excluirItem}){
   )
 }
 
-function ManutencaoTabelaMobile({className, itens, editarItem, excluirItem}){
+function ManutencaoTabelaMobile({className, itens, atualizarItem, editarItem, excluirItem}){
   return(
     <div className='md:hidden paisagem:grid paisagem:grid-cols-2 paisagem:gap-2'>
       {itens.map((item) => (
@@ -204,7 +237,8 @@ function ManutencaoTabelaMobile({className, itens, editarItem, excluirItem}){
             {/* RODAPÉ DO CARD (Ações rápidas fáceis de tocar) */}
             <div className="flex gap-2 pt-1 col-span-2 menor:max-paisagem:col-span-3">
               <button className="w-full bg-lime-100 border border-lime-300
-              font-medium py-2 rounded-xl text-xs justify-center">
+              font-medium py-2 rounded-xl text-xs justify-center"
+              onClick={() => atualizarItem(item.id)}>
                 Confirmar
               </button>
                 <button className="w-full bg-blue-100 border  border-blue-300 
