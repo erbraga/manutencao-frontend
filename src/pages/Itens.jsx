@@ -1,11 +1,10 @@
-import {BarraSuperior, BarraSuperiorItens, PrincipalItens} from '../components/Tela';
+import {ItensPrincipal} from '../components/Tela';
 
 export default function Itens() {
 
   return (
     <div>
-      <BarraSuperior element = {<BarraSuperiorItens />} />
-      <PrincipalItens />
+      <ItensPrincipal />
     </div>
   );
 }

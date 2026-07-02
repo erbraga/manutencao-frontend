@@ -1,12 +1,10 @@
-import {BarraSuperior, BarraSuperiorVeiculos, PrincipalVeiculos} from '../components/Tela';
+import {VeiculosPrincipal} from '../components/Tela';
 
 export default function Veiculos() {
 
   return (
     <div>
-      <BarraSuperior element = {<BarraSuperiorVeiculos />} />
-      <PrincipalVeiculos />
-
+      <VeiculosPrincipal />
     </div>
   );
 }
