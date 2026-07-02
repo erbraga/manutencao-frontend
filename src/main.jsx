@@ -12,10 +12,10 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route index element={<Navigate to="/manutencao" replace />} />
+          <Route index element={<Navigate to="/veiculos" replace />} />
+          <Route path="/veiculos" element={<Veiculos />} />
           <Route path='/manutencao' element={<Manutencao />} />
           <Route path="/itens" element={<Itens />} />
-          <Route path="/veiculos" element={<Veiculos />} />
         </Route>
       </Routes>
     </BrowserRouter>

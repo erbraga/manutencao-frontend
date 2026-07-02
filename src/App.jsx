@@ -29,6 +29,11 @@ function Cabecalho(){
           </div>
           <div className='m-1 p-2 flex flex-row gap-2'>
             <nav className='border border-slate-400 rounded-full flex flex-row'>
+              <NavLink to='/veiculos'>
+                <IconeVeiculo className="m-1 p-1 rounded-full text-stone-500 
+                  hover:bg-slate-300 focus:bg-blue-700 focus:text-white
+                  cursor-pointer" />
+              </NavLink>
               <NavLink to= '/manutencao'>
                 <IconeHome className="m-1 p-1 rounded-full  text-stone-500 
                   hover:bg-slate-300 focus:bg-blue-700 focus:text-white 
@@ -38,11 +43,6 @@ function Cabecalho(){
                 <IconeItemManutencao className="m-1 p-1 rounded-full  text-stone-500 
                   hover:bg-slate-300 focus:bg-blue-700 focus:text-white w-10" />
               </Link>
-              <NavLink to='/veiculos'>
-                <IconeVeiculo className="m-1 p-1 rounded-full text-stone-500 
-                  hover:bg-slate-300 focus:bg-blue-700 focus:text-white
-                  cursor-pointer" />
-              </NavLink>
             </nav>
             {/* <div className='border border-slate-400 rounded-full'>
               <IconeModoAutomatico className="p-3 rounded-full  text-black bg-white hover:bg-slate-300" />

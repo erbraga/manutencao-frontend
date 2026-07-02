@@ -49,11 +49,11 @@ export function ManutencaoPrincipal(){
             value={veiculoSelecionado}
             onChange={setVeiculoSelecionado}
           />
-            <div className='flex flex-row gap-2 md:w-1/4'>
-              < InputData label = "Data" name = "data" className="flex flex-col w-1/2"/>
-              < InputNumero label = "Quilometragem" name = "data" 
-                className="flex flex-col w-1/2"/>
-            </div>
+          <div className='flex flex-row gap-2 md:w-1/4'>
+            < InputData label = "Data" name = "data" className="flex flex-col w-1/2"/>
+            < InputNumero label = "Quilometragem" name = "data" 
+              className="flex flex-col w-1/2"/>
+          </div>
         </div>
       </div>
 
@@ -88,6 +88,7 @@ function ManutencaoTabelaDesktop({className, itens, excluirItem}){
             <th colSpan="2" className=''>Última troca</th>
             <th colSpan="2" className=''>Próxima troca</th>
             <th rowSpan="2" className=''></th>
+            <th rowSpan="2" className=''></th>
           </tr>
           <tr className=''>
               <th className=''>km</th>
@@ -109,6 +110,7 @@ function ManutencaoTabelaDesktop({className, itens, excluirItem}){
                 <td className='text-center'>{item.ultima_troca_km + item.intervalo_km}</td>
                 <td className='text-center'><SomarPrazo prazo = {item.intervalo_prazo} 
                   data = {item.ultima_troca_data}/></td>
+                <td className=''>{item.veiculo}</td>
                 <td className='text-center w-40'>
                   <IconeAtualizar 
                     className="m-1 p-1 rounded-full hover:bg-teal-400 cursor-pointer" 
@@ -184,103 +186,8 @@ function ManutencaoTabelaMobile({className, itens, excluirItem}){
   )
 }
 
-// Cadastro de veículos
-//########################################################################3
-export function VeiculosPrincipal(){
-  const [veiculos, setVeiculos] = useState(() => {
-    const armazenados = localStorage.getItem("veiculos");
-    return armazenados ? JSON.parse(armazenados) : [];
-  });
 
-  const [veiculoEditando, setVeiculoEditando] = useState(null);
-
-  useEffect(() => {
-    localStorage.setItem("veiculos", JSON.stringify(veiculos));
-  }, [veiculos]);
-
-  const salvarVeiculo = (descricao) => {   
-    if (veiculoEditando) {
-      setVeiculos((prev) =>
-        prev.map((v) =>
-          v.id === veiculoEditando.id ? { ...v, descricao } : v
-        )
-      );
-      setVeiculoEditando(null); // limpa edição
-    } else {
-      const maiorId = veiculos.length > 0 ? Math.max(...veiculos.map(v => v.id)) : 0;
-      const novoVeiculo = { id: maiorId + 1, descricao };
-      setVeiculos((prev) => [...prev, novoVeiculo]);
-    }
-  };
-
-  const excluirVeiculo = (id) => {
-    setVeiculos((prev) => prev.filter((veiculo) => veiculo.id !== id));
-  };
-
-  const editarVeiculo = (veiculo) => {
-    setVeiculoEditando(veiculo); // envia id e descrição para o input
-  };
-
-  return(
-    <section className='w-full'>
-
-      <div className='flex flex-col flex-nowrap p-4 md:p-8 border 
-      border-slate-400 rounded-3xl shadow-xl w-full m-auto my-4 
-        bg-radial-[at_0%_100%] from-slate-300 to-slate-100'>
-
-        <BarraSuperiorTexto titulo = 'Veículos'
-          descricao = 'Mantenha o cadastro dos seus veículos com informações completas 
-          como marca, modelo, ano de fabricação, cor, placa, dentre outras informações 
-          que achar necessárias.'
-        />
-
-        <InputTextoBotao 
-          name="veiculo" 
-          label="Descrição do veículo"
-          onSalvar={salvarVeiculo} 
-          veiculoEditando={veiculoEditando}
-          className='flex flex-col p-1 mb-2 mt-6 w-full cursor-pointer' 
-        />
-      </div>
-
-      <VeiculosTabela 
-        className='w-full' 
-        veiculos={veiculos} 
-        excluirVeiculo={excluirVeiculo} 
-        editarVeiculo={editarVeiculo}
-      />
-    </section>
-  )
-}
-
-function VeiculosTabela({ className, veiculos, excluirVeiculo, editarVeiculo }) {
-  return (
-    <div className="md:bg-white md:border md:border-slate-400 md:rounded-3xl md:shadow-xl">
-      <ul className="md:m-4">
-        {veiculos.map((veiculo) => (
-          <li key={veiculo.id} className="flex flex-row justify-between mx-auto bg-white border 
-              border-slate-400 md:border-0 rounded-2xl shadow-xl md:shadow-none p-2 
-              mb-3 md:mb-0 md:border-b md:border-b-slate-300 md:rounded-b-none 
-              items-center hover:bg-teal-200 md:hover:rounded-none">
-            <h3 className="text-xl">{veiculo.descricao}</h3>
-            <div>
-              <IconeEditar 
-                className="m-1 p-1 rounded-full hover:bg-teal-400 cursor-pointer" 
-                onClick={() => editarVeiculo(veiculo)} 
-              />
-              <IconeDeletar
-                className="m-1 p-1 rounded-full hover:bg-teal-400 cursor-pointer"
-                onClick={() => excluirVeiculo(veiculo.id)}
-              />
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function InputTextoBotao({label, name, className, onSalvar, veiculoEditando}){
+export function InputTextoBotao({label, name, className, onSalvar, veiculoEditando}){
   const [valor, setValor] = useState("");
 
   useEffect(() => {
@@ -331,6 +238,19 @@ export function ItensPrincipal(){
 
   const navigate = useNavigate();
 
+  const [veiculos, setVeiculos] = useState(() => {
+    const armazenados = localStorage.getItem("veiculos");
+    return armazenados ? JSON.parse(armazenados) : [];
+  });
+
+  const [veiculoSelecionado, setVeiculoSelecionado] = useState(null);
+
+  const handleSelecionarVeiculo = (id) => {
+    const veiculo = veiculos.find(v => v.id === Number(id));
+    setVeiculoSelecionado(veiculo);
+  };
+
+
   const handleSalvar = () => {
     const armazenados = localStorage.getItem("itensManutencao");
     const itens = armazenados ? JSON.parse(armazenados) : [];
@@ -342,7 +262,8 @@ export function ItensPrincipal(){
       intervalo_km: Number(intervaloKm),
       intervalo_prazo: Number(intervaloPrazo),
       ultima_troca_km: Number(ultimaTrocaKm),
-      ultima_troca_data: ultimaTrocaData
+      ultima_troca_data: ultimaTrocaData,
+      veiculo: veiculoSelecionado
     };
 
     localStorage.setItem("itensManutencao", JSON.stringify([...itens, novoItem]));
@@ -362,6 +283,13 @@ export function ItensPrincipal(){
             descricao = 'Mantenha o cadastro dos ítens de manutenção dos seus veículos informando 
             descrição do ítem, intervalo para próxima manutenção em quilômetros e meses, 
             assim como quilometragem e data da última manutenção.'
+          />
+
+            <Selecao label = "Veículo" name = "veiculo" className="flex flex-col 
+            col-span-full mt-6"
+            opcoes={veiculos.map(v => ({ valor: v.id, texto: v.descricao }))}
+            value={veiculoSelecionado}
+            onChange={setVeiculoSelecionado}
           />
         </div>
 
@@ -547,7 +475,7 @@ function ManutencaoBarraFiltros({className}){
   )
 }
 
-function BarraSuperiorTexto({titulo, descricao}){
+export function BarraSuperiorTexto({titulo, descricao}){
   return(
       <div className='flex flex-col md:flex-row'>
         <div className='flex flex-col'>
