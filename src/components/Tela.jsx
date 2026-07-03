@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import {useNavigate} from 'react-router'
 import dados from '../dados.json';
 import {IconePrincipal, IconeHome, IconeItemManutencao, IconeVeiculos, 
-  IconeModoAutomatico, IconeAtualizar, IconeEditar, IconeDeletar, 
+  IconeModoAutomatico, IconeAtualizar, IconeEditar, IconeDeletar, IconeAlerta, 
   IconeSalvar} from './Icons';
 
 export function Selecao({label, value, name, className, opcoes, onChange}){
@@ -77,7 +77,7 @@ export function InputBotaoEditar({label, name, className, onClick, onCancelar, o
             <div className = 'w-1/2 border-2 border-white rounded-xl'>
               <div 
                 className='w-full flex flex-row text-white bg-red-500 
-                  hover:bg-cyan-400 border-2 border-red-700 rounded-xl p-2 gap-2 items-center'
+                  hover:bg-red-400 border-2 border-red-700 rounded-xl p-2 gap-2 items-center'
                 onClick={onCancelar}>
                 <IconeSalvar className="cursor-pointer" />
                 <span>{"Cancelar"}</span>
@@ -235,28 +235,18 @@ export function Modal({ isOpen, onClose, veiculoNome }) {
       <div className="w-full max-w-md bg-white border border-slate-400 
         rounded-3xl shadow-2xl p-6">
         {/* Cabeçalho do Modal */}
-        <div className="flex items-center justify-between p-4 border-b border-slate-400 
-          bg-radial-[at_0%_100%] from-slate-300 to-slate-100 text-red-700 ">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 text-red-600">
             <span className="text-xl">⚠️</span>
-            <h3>Operação Bloqueada</h3>
+            <h2 className="text-2xl font-bold">Operação Bloqueada</h2>
           </div>
-          <button 
-            onClick={onClose}
-            className="h-8 w-8 text-slate-400 hover:text-slate-700 hover:bg-slate-200 
-            rounded-full transition-colors font-bold flex items-center justify-center"
-          >
-            ✕
-          </button>
-        </div>
 
         {/* Conteúdo */}
-        <div className="p-6 text-slate-600">
-          <p className="mb-4 text-base">
+        <div className=" text-slate-600">
+          <p className="mb-6">
             Não é possível excluir o veículo <strong className="text-slate-900">
             {veiculoNome}</strong>.
           </p>
-          <p className="text-sm bg-slate-100 border border-slate-300 p-3 rounded-xl">
+          <p className="bg-slate-100 border border-slate-300 p-3 rounded-xl">
             Existem itens de manutenção vinculados a este registro. Remova as manutenções 
             deste veículo antes de tentar excluí-lo.
           </p>
@@ -264,13 +254,13 @@ export function Modal({ isOpen, onClose, veiculoNome }) {
 
         {/* Rodapé / Ações */}
         <div className='flex flex-row w-full justify-end p-4'>
-        <div className="w-fit border-2 border-white rounded-xl">
-          <button
-            onClick={onClose}
-            className="bg-red-500 border-2 border-red-700 hover:bg-red-700 py-2 px-5 
-            rounded-xl font-semibold text-sm text-white"
-          >ok</button>
-        </div>
+          <div className="w-fit border-2 border-white rounded-xl">
+            <button
+              onClick={onClose}
+              className="bg-red-500 border-2 border-red-700 hover:bg-red-700 py-2 px-5 
+              rounded-xl font-semibold text-sm text-white"
+            >ok</button>
+          </div>
         </div>
 
       </div>
@@ -287,34 +277,33 @@ export function ModalConfirmacao({ isOpen, onClose, onConfirm, veiculoNome }) {
       <div className="w-full max-w-md bg-white border border-slate-400 
         rounded-3xl shadow-2xl p-6">
         {/* Cabeçalho do Modal */}
-        <div className="flex items-center gap-3 text-red-600 mb-4">
-          <div className="p-2 bg-red-100 rounded-full">
+        <div className="flex items-center gap-2 text-red-600 mb-4">
             {/* Ícone de aviso simplificado em SVG */}
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-            </svg>
-          </div>
-          <h2 className="text-2xl font-bold text-slate-800">Confirmar Exclusão</h2>
+          <IconeAlerta className="p-2 bg-red-100 rounded-full" />
+          <h2 className="text-2xl font-bold">Confirmar Exclusão</h2>
         </div>
-        
-        <p className="text-slate-600 text-lg mb-6 leading-relaxed">
-          Tem certeza de que deseja excluir permanentemente o veículo <span className="font-semibold text-slate-900">"{veiculoNome}"</span>? Esta ação não poderá ser desfeita.
+        {/* Conteúdo */}
+        <p className="text-slate-600 mb-6 leading-relaxed">
+          Tem certeza de que deseja excluir o veículo 
+          <span className="font-semibold text-slate-900"> {veiculoNome}</span>
+          ? Esta ação não poderá ser desfeita.
         </p>
         
         <div className="flex flex-row gap-3 justify-end w-full">
           <button 
             type="button"
             onClick={onClose}
-            className="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-xl font-medium text-slate-700 transition-colors w-1/2 md:w-auto"
-          >
-            Cancelar
+            className="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 
+            border-2 border-slate-300 rounded-xl font-medium text-slate-700 
+            w-1/2 md:w-auto"
+            >Cancelar
           </button>
           <button 
             type="button"
             onClick={onConfirm}
-            className="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl font-medium shadow-md shadow-red-200 transition-colors w-1/2 md:w-auto"
-          >
-            Excluir
+            className="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white 
+            border-2 border-slate-300 rounded-xl font-medium w-1/2 md:w-auto"
+            >Excluir
           </button>
         </div>
       </div>
