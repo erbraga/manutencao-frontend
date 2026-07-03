@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router'
 import dados from '../dados.json';
 import {IconePrincipal, IconeHome, IconeItemManutencao, IconeVeiculos, 
   IconeModoAutomatico, IconeAtualizar, IconeEditar, IconeDeletar, IconeAlerta, 
-  IconeSalvar} from './Icons';
+  IconeSalvar, IconeVoltar} from './Icons';
 
 export function Selecao({label, value, name, className, opcoes, onChange}){
   return(
@@ -69,7 +69,7 @@ export function InputBotaoEditar({label, name, className, onClick, onCancelar, o
       <div className='w-full flex flex-col md:flex-row gap-2'>
         <input  
           name={name} 
-          id={name} 
+          id={name}
           value={value || ""} 
           onChange={onChange} 
           className='p-2 bg-white border border-slate-400 rounded-xl w-full md:w-3/4'/>
@@ -80,7 +80,7 @@ export function InputBotaoEditar({label, name, className, onClick, onCancelar, o
                   hover:bg-sky-300 border-2 border-sky-700 rounded-xl p-2 gap-2 
                   items-center'
                 onClick={onCancelar}>
-                <IconeSalvar className="cursor-pointer" />
+                <IconeVoltar className="cursor-pointer" />
                 <span>{"Cancelar"}</span>
               </div>
             </div>
@@ -201,7 +201,7 @@ export function BlocoHorizontal({ titulo, texto}){
 }
 
 export function BotaoFlutuanteMobile({onClick, icone, legenda, cores}){
-  const formatacao = `flex flex-row w-16 md:w-full h-16 p-3 rounded-full 
+  const formatacao = `flex flex-row w-16 md:w-full h-16 md:h-fit p-3 rounded-full 
     md:rounded-xl justify-center border-3 md:border ` + cores;  
     return(
       <div className='border-3 border-white rounded-full md:rounded-xl md:w-1/2 

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import {useNavigate, useSearchParams} from 'react-router'
-import {IconeSalvar} from '../components/Icons'
+import {IconeVoltar, IconeSalvar} from '../components/Icons'
 
 import {BarraSuperiorTexto, Selecao, InputTexto, InputNumero, InputData,
-  BarraSuperiorTitulo
+  BarraSuperiorTitulo, Modal
 } from '../components/Tela';
 
 export default function Itens() {
@@ -16,6 +16,7 @@ export default function Itens() {
 }
 
 function ItensPrincipal(){
+  const [modalAberto, setModalAberto] = useState(false);
   const [searchParams] = useSearchParams();
   const veiculoIdViaUrl = searchParams.get('veiculoId');
   const itemIdViaUrl = searchParams.get('itemId');
@@ -70,6 +71,21 @@ function ItensPrincipal(){
 const handleSalvar = () => {
   const armazenados = localStorage.getItem("itensManutencao");
   let itens = armazenados ? JSON.parse(armazenados) : [];
+  
+    const hoje = new Date().toISOString().split("T")[0];
+    if ((!descricao) ||
+        (!intervaloKm) ||
+        (intervaloKm < 100 || intervaloKm > 100000) ||
+        (!intervaloPrazo) ||
+        (intervaloPrazo < 1 || intervaloPrazo >120) ||
+        (!ultimaTrocaKm) ||
+        (ultimaTrocaKm < 0 || ultimaTrocaKm > 1000000) ||
+        (!ultimaTrocaData) ||
+        (ultimaTrocaData > hoje)
+        ){
+          setModalAberto(true);
+          return;
+    }
 
   if (itemIdViaUrl) {
     // Se existe itemId na URL, estamos EDITANDO
@@ -89,6 +105,8 @@ const handleSalvar = () => {
     });
   } else {
     // Se não existe itemId na URL, é um NOVO ITEM
+
+
     const maiorId = itens.length > 0 ? Math.max(...itens.map(i => i.id)) : 0;
     const novoItem = {
       id: maiorId + 1,
@@ -107,23 +125,32 @@ const handleSalvar = () => {
 };
 
   return(
-      <section className='w-full'>
-        <div className='flex flex-col flex-nowrap p-4 md:p-8 border 
-        border-slate-400 rounded-3xl shadow-xl w-full m-auto my-4 
-          bg-radial-[at_0%_100%] from-slate-300 to-slate-100'>
-          <BarraSuperiorTitulo 
-            veiculo = {veiculos.find(v => v.id === Number(veiculoSelecionado))?.descricao}/>
-        </div>
+    <section className='w-full'>
+      <div className='flex flex-col flex-nowrap p-4 md:p-8 border 
+      border-slate-400 rounded-3xl shadow-xl w-full m-auto my-4 
+        bg-radial-[at_0%_100%] from-slate-300 to-slate-100'>
+        <BarraSuperiorTitulo 
+          veiculo = {veiculos.find(v => v.id === Number(veiculoSelecionado))?.descricao}/>
+      </div>
 
-        <ItensTabela 
-          descricao={descricao}             setDescricao={setDescricao}
-          intervaloKm={intervaloKm}         setIntervaloKm={setIntervaloKm}
-          intervaloPrazo={intervaloPrazo}   setIntervaloPrazo={setIntervaloPrazo}
-          ultimaTrocaKm={ultimaTrocaKm}     setUltimaTrocaKm={setUltimaTrocaKm}
-          ultimaTrocaData={ultimaTrocaData} setUltimaTrocaData={setUltimaTrocaData}
-          handleVoltar={handleVoltar}       handleSalvar={handleSalvar}
-        />
-     </section>
+      <ItensTabela 
+        descricao={descricao}             setDescricao={setDescricao}
+        intervaloKm={intervaloKm}         setIntervaloKm={setIntervaloKm}
+        intervaloPrazo={intervaloPrazo}   setIntervaloPrazo={setIntervaloPrazo}
+        ultimaTrocaKm={ultimaTrocaKm}     setUltimaTrocaKm={setUltimaTrocaKm}
+        ultimaTrocaData={ultimaTrocaData} setUltimaTrocaData={setUltimaTrocaData}
+        handleVoltar={handleVoltar}       handleSalvar={handleSalvar}
+      />
+
+      <Modal 
+        isOpen={modalAberto} 
+        onClose={() => setModalAberto(false)} 
+        // veiculoNome={veiculoBloqueadoNome}
+        titulo = {<>Não é possível Atualizar o histórico de manutenções.</>}
+        texto = {<TextoModal/>}
+      />
+    </section>
+     
   )
 }
 
@@ -145,21 +172,36 @@ function ItensTabela({descricao, setDescricao, intervaloKm, setIntervaloKm,
       <InputData label="Última troca (data)" 
         value={ultimaTrocaData} onChange={(e) => setUltimaTrocaData(e.target.value)} />
       <div className=' flex flex-row gap-2 md:col-span-2 md:justify-end md:mt-12'>
-        <div onClick={handleVoltar} className='w-full flex flex-row md:w-1/8 bg-red-100 
-          hover:bg-red-300 border border-red-300 rounded-xl p-2 gap-2 items-center
-          cursor-pointer'>               
-          <IconeSalvar className="cursor-pointer"/>
+        <div onClick={handleVoltar} className='w-full flex flex-row md:w-1/8 bg-sky-500 
+          hover:bg-sky-300 border border-sky-700 rounded-xl p-3 gap-2 items-center
+          text-white font-bold cursor-pointer'>               
+          <IconeVoltar className="cursor-pointer"/>
             <span className=''>Cancelar</span>
         </div>
-        <div onClick={handleSalvar} className='w-full flex flex-row md:w-1/8 bg-blue-100 
-          hover:bg-blue-300 border border-blue-300 rounded-xl p-2 gap-2 items-center
-          cursor-pointer'>               
+        <div onClick={handleSalvar} className='w-full flex flex-row md:w-1/8 bg-red-500 
+          hover:bg-red-300 border border-red-700 rounded-xl p-3 gap-2 items-center
+          text-white font-bold cursor-pointer'>               
           <IconeSalvar className="cursor-pointer"/>
           <span className=''>Salvar</span>
         </div>
       </div>
     </section>
+  );
+}
 
+function TextoModal() {
+  return (
+    <div className="">
+      {/* <span className="">O ccs campos de data e quilometragem precisam ser 
+        preenchidos conforme as seguintes regras:</span> */}
+      <ul className="list-disc list-outside pl-4">
+        <li className='mt-2'>Todos os campos devem ser preenchidos.</li>
+        <li>O valor da quilometragem para troca deve estar entre 100 e 100 mil.</li>
+        <li>O valor da última troca deve estar entre 0 e 1 milhão</li>
+        <li>A data da última troca não pode ser posterior à data de hoje</li>
+        <li>O intervalo de trocas não pode ser superior a 120 meses (10 anos)</li>
+      </ul>
+    </div>
   );
 }
 

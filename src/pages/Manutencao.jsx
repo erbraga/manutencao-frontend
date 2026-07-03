@@ -143,7 +143,7 @@ function ManutencaoPrincipal(){
         onClose={() => setModalAberto(false)} 
         // veiculoNome={veiculoBloqueadoNome}
         titulo = {<>Não é possível Atualizar o histórico de manutenções.</>}
-        texto = {<TextoRegrasAtualizacaoManutencao/>}
+        texto = {<TextoModal/>}
         />      
 
 
@@ -285,7 +285,7 @@ function ManutencaoTabelaMobile({className, itens, atualizarItem, editarItem, ex
   )
 }
 
-function TextoRegrasAtualizacaoManutencao() {
+function TextoModal() {
   return (
     <div className="">
       <span className="">Os campos de data e quilometragem precisam ser 
