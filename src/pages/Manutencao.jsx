@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router';
-import {IconeAtualizar, IconeEditar, IconeDeletar} from '../components/Icons';
+import {IconeAtualizar, IconeEditar, IconeDeletar, IconeMais, IconeVoltar} from '../components/Icons';
 import {BarraSuperiorTexto, Selecao, InputData, InputNumero, FormatarDataBr, SomarPrazo,
-  BlocoVertical, BlocoHorizontal
+  BlocoVertical, BlocoHorizontal, BarraSuperiorTitulo, BotaoFlutuanteMobile
 } from '../components/Tela';
 
 export default function Itens() {
@@ -48,11 +48,6 @@ function ManutencaoPrincipal(){
       })
     : itens;
 
-  // const handleSelecionarVeiculo = (id) => {
-  //   const veiculo = veiculos.find(v => v.id === Number(id));
-  //   setVeiculoSelecionado(veiculo);
-  // };
-
   const editarItem = (id) => {
     navigate(`/itens?veiculoId=${veiculoSelecionado}&itemId=${id}`);
   }
@@ -92,37 +87,47 @@ function ManutencaoPrincipal(){
     localStorage.setItem("itensManutencao", JSON.stringify(itensAtualizados));
   };
 
+  const voltarVeiculos = () => {
+    navigate(`/veiculos`);
+  }
+
   return(
     <section className=''>
-      <div className='flex flex-col flex-nowrap p-4 md:p-8 border 
-        border-slate-400 rounded-3xl shadow-xl w-full m-auto my-4 
+      <div className='flex flex-col flex-nowrap w-full my-4 p-4 md:p-8 border 
+        border-slate-400 rounded-3xl shadow-xl   
         bg-radial-[at_0%_100%] from-slate-300 to-slate-100'>
-        <BarraSuperiorTexto titulo='Manutenções'
-          descricao='Visualize todas as manutenções registradas para cada veículo, assim 
-          como data e quilometragem da próxima troca.'
-        />
+        <div className='flex flex-row'>
+          <div className='flex flex-row w-3/4'>
+          <BarraSuperiorTitulo 
+            veiculo = {veiculos.find(v => v.id === Number(veiculoSelecionado))?.descricao}/>
+          </div>
+          <nav className='fixed right-8 bottom-8 md:relative md:right-0 md:bottom-0 
+            flex flex-row justify-end items-center gap-2 md:w-1/4'>
+            <BotaoFlutuanteMobile cores="bg-red-200 border-red-400"
+              onClick={voltarVeiculos} icone = {<IconeVoltar className="cursor-pointer " />}
+              legenda = "Voltar"/>
 
-        <div className='flex flex-col md:flex-row gap-2 mt-4 py-2 w-full items-end'>
-          <h3 className="flex flex-col w-full md:w-2/3 bg-white rounded-xl border 
-          border-slate-400 h-8 p-1 font-bold text-center">
-            {veiculos.find(v => v.id === Number(veiculoSelecionado))?.descricao}
-          </h3>
-          
+            <BotaoFlutuanteMobile cores="bg-lime-200 border-lime-400"
+              onClick={handleNovoItem} 
+              icone = {<IconeMais className="cursor-pointer "/>}
+              legenda = "Novo item"/>
+
+          </nav>
+        </div>
+        
+        <div className='flex flex-col md:flex-row gap-2 py-2 w-full items-end'>
           <div className='flex flex-row gap-2 w-full md:w-1/3 items-end'>
-            < InputData label = "Data" name = "data" 
-              onChange={(e) => setDataAtualizacao(e.target.value)} 
-              className="flex flex-col w-1/2"/>
+            < InputData label = "Data" name = "data"  
+              className="flex flex-col w-1/2"
+              onChange={(e) => setDataAtualizacao(e.target.value)}/>
             < InputNumero label = "Quilometragem" name = "data" 
-              onChange={(e) => setKmAtualizacao(e.target.value)}
-              className="flex flex-col w-1/2"/>
-            <button className='flex flex-col w-16 h-16 md:h-8 bg-red-400 rounded-full md:rounded-xl 
-            text-white font-bold text-center
-            fixed bottom-8 right-8 md:relative md:bottom-0 md:right-0'
-            onClick={handleNovoItem}>
-            +</button>
+              className="flex flex-col w-1/2"
+              onChange={(e) => setKmAtualizacao(e.target.value)}/>
           </div>
         </div>
+
       </div>
+
 
       {/* Tabela Desktop */}
       <ManutencaoTabelaDesktop 
@@ -239,7 +244,7 @@ function ManutencaoTabelaMobile({className, itens, atualizarItem, editarItem, ex
               <button className="w-full bg-lime-100 border border-lime-300
               font-medium py-2 rounded-xl text-xs justify-center"
               onClick={() => atualizarItem(item.id)}>
-                Confirmar
+                Atualizar
               </button>
                 <button className="w-full bg-blue-100 border  border-blue-300 
                 font-medium py-2 rounded-xl text-xs justify-center"

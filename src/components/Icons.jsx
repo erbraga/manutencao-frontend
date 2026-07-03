@@ -287,9 +287,9 @@ export function IconeDeletar({className, onClick}){
     );
 }
 
-export function IconeSalvar({className}){
+export function IconeSalvar({className, onClick}){
     return(
-        <button className={className}>
+        <button className={className} onClick = {onClick}>
             <svg 
                 height="24px" 
                 viewBox="0 0 24 24" 
@@ -303,3 +303,34 @@ export function IconeSalvar({className}){
         </button>
     );
 }
+
+export function IconeMais({className, onClick}){
+    return(
+        <button className={className} onClick = {onClick}>
+            <svg 
+                height="24px" 
+                viewBox="0 -960 960 960" 
+                width="24px" 
+                fill="currentColor">
+                <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>            
+            </svg>
+        </button>
+    );
+}
+
+export function IconeVoltar({className}){
+    return(
+        <button className={className}>
+            <svg 
+                height="24px" 
+                viewBox="0 -960 960 960" 
+                width="24px" 
+                fill="currentColor">
+                <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 
+                    224h487v80H313Z"/>           
+            </svg>
+        </button>
+    );
+}
+
+

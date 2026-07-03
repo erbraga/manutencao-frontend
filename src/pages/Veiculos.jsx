@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
-import {InputTextoBotao, BarraSuperiorTexto} from '../components/Tela';
+import {InputBotaoEditar, InputBotaoSalvar, BarraSuperiorTexto, BotaoHorizontal, 
+  Modal} from '../components/Tela';
 import {IconeEditar, IconeDeletar} from '../components/Icons'
 
 export default function Veiculos() {
@@ -14,6 +15,9 @@ export default function Veiculos() {
 }
 
 function VeiculosPrincipal(){
+  const [modalAberto, setModalAberto] = useState(false);
+  const [veiculoBloqueadoNome, setVeiculoBloqueadoNome] = useState('');
+
   const [veiculos, setVeiculos] = useState(() => {
     const armazenados = localStorage.getItem("veiculos");
     return armazenados ? JSON.parse(armazenados) : [];
@@ -24,6 +28,29 @@ function VeiculosPrincipal(){
   useEffect(() => {
     localStorage.setItem("veiculos", JSON.stringify(veiculos));
   }, [veiculos]);
+
+//################################################
+  const [valor, setValor] = useState("");
+
+  useEffect(() => {
+    if (veiculoEditando) {
+      setValor(veiculoEditando.descricao); // mostra descrição no input
+    }
+  }, [veiculoEditando]);
+
+  const handleSalvar = () => {
+    if (valor.trim() !== "") {
+      salvarVeiculo(valor);
+      setValor("");
+    }
+  };
+
+const handleCancelar = () => {
+    setValor("");
+    setVeiculoEditando(null); // Ao cancelar, redefine e volta para o InputBotaoSalvar
+  };
+//################################################
+
 
   const salvarVeiculo = (descricao) => {   
     if (veiculoEditando) {
@@ -40,34 +67,62 @@ function VeiculosPrincipal(){
     }
   };
 
-  const excluirVeiculo = (id) => {
-    setVeiculos((prev) => prev.filter((veiculo) => veiculo.id !== id));
+  const excluirVeiculo = (id, descricao) => {
+    // 1. Busca a lista de manutenções guardadas no localStorage
+    const armazenadosManutencao = localStorage.getItem("itensManutencao");
+    const manutencoes = armazenadosManutencao ? JSON.parse(armazenadosManutencao) : [];
+
+    // 2. Verifica se existe alguma manutenção vinculada ao ID deste veículo
+    // Certifique-se de que a propriedade na sua tabela de manutenção chama-se exatamente 'veiculoId'
+    const possuiManutencao = manutencoes.some(m => Number(m.veiculoId) === Number(id));
+
+    if (possuiManutencao) {
+      setVeiculoBloqueadoNome(descricao);
+      setModalAberto(true);
+      return; // Bloqueia a exclusão interrompendo a função
+
+    }
+
+    // 3. Confirmação nativa simples antes de apagar permanentemente
+    if (confirm("Deseja realmente excluir este veículo?")) {
+      setVeiculos((prev) => prev.filter((veiculo) => veiculo.id !== id));
+    }
   };
 
   const editarVeiculo = (veiculo) => {
     setVeiculoEditando(veiculo); // envia id e descrição para o input
   };
 
+  
+
   return(
     <section className='w-full'>
-
       <div className='flex flex-col flex-nowrap p-4 md:p-8 border 
       border-slate-400 rounded-3xl shadow-xl w-full m-auto my-4 
         bg-radial-[at_0%_100%] from-slate-300 to-slate-100'>
 
-        <BarraSuperiorTexto titulo = 'Veículos'
-          descricao = 'Mantenha o cadastro dos seus veículos com informações completas 
-          como marca, modelo, ano de fabricação, cor, placa, dentre outras informações 
-          que achar necessárias.'
-        />
-
-        <InputTextoBotao 
+      {/* Alteração dinâmica aqui baseado no estado veiculoEditando */}
+      {veiculoEditando ? (
+        <InputBotaoEditar 
           name="veiculo" 
-          label="Descrição do veículo"
-          onSalvar={salvarVeiculo} 
+          label="Edite o veículo selecionado"
+          onClick={handleSalvar}
+          onCancelar={handleCancelar}
+          onChange={(e) => setValor(e.target.value)}
           veiculoEditando={veiculoEditando}
-          className='flex flex-col p-1 mb-2 mt-6 w-full cursor-pointer' 
+          value={valor} 
         />
+      ) : (
+        <InputBotaoSalvar 
+          name="veiculo" 
+          label="Cadastre um novo veículo aqui"
+          onSalvar={salvarVeiculo}
+          onClick={handleSalvar}
+          onChange={(e) => setValor(e.target.value)}
+          veiculoEditando={veiculoEditando}
+          value = {valor} 
+        />
+      )}
       </div>
 
       <VeiculosTabela 
@@ -76,6 +131,14 @@ function VeiculosPrincipal(){
         excluirVeiculo={excluirVeiculo} 
         editarVeiculo={editarVeiculo}
       />
+
+      {/* Renderização do Modal de Bloqueio */}
+        <Modal 
+          isOpen={modalAberto} 
+          onClose={() => setModalAberto(false)} 
+          veiculoNome={veiculoBloqueadoNome}
+      />
+
     </section>
   )
 }
@@ -91,31 +154,28 @@ function VeiculosTabela({ className, veiculos, excluirVeiculo, editarVeiculo }) 
               mb-3 md:mb-0 md:border-b md:border-b-slate-300 md:rounded-b-none 
               items-center hover:bg-teal-200 md:hover:rounded-none">
               <div className='flex flex-col md:flex-row w-full'>
-            <h3 className="text-xl w-full md:w-3/4 border-b border-b-slate-300 md:border-none">{veiculo.descricao}</h3>
-
-            <div className="flex gap-2 mt-1 pt-1 col-span-2 menor:max-paisagem:col-span-3
-              w-full md:w-1/4">
-              <button className="w-full bg-lime-100 border border-lime-300
-              font-medium py-2 rounded-xl text-xs justify-center"
-              onClick={() => navigate(`/manutencao?veiculoId=${veiculo.id}`)}>
-                Manutenções
-              </button>
-                <button className="w-full bg-blue-100 border  border-blue-300 
-                font-medium py-2 rounded-xl text-xs justify-center"
-                onClick={() => editarVeiculo(veiculo)} >
-                  Editar
-              </button>
-              <button className="w-full bg-red-100 border border-red-300 
-              font-medium py-2 rounded-xl text-xs justify-center"
-              onClick={() => excluirVeiculo(veiculo.id)}>
-                  Excluir
-              </button>
-            </div>
-            </div>
+                <h3 className="text-xl w-full md:w-3/4 border-b border-b-slate-300 
+                  md:border-none">{veiculo.descricao}
+                </h3>
+                <div className="flex gap-2 mt-1 pt-1 col-span-2 
+                  menor:max-paisagem:col-span-3
+                  w-full md:w-1/4">
+                  <BotaoHorizontal 
+                    onClick={() => navigate(`/manutencao?veiculoId=${veiculo.id}`)}
+                    legenda = 'Manutenções' cores = 'bg-lime-100 border-lime-300'/>
+                  <BotaoHorizontal 
+                    onClick={() => editarVeiculo(veiculo)}
+                    legenda = 'Editar' cores = 'bg-blue-100 border-blue-300'/>
+                  <BotaoHorizontal 
+                    onClick={() => excluirVeiculo(veiculo.id, veiculo.descricao)}
+                    legenda = 'Excluir' cores = 'bg-red-100 border-red-300'/>
+                </div>
+              </div>
           </li>
         ))}
       </ul>
     </div>
   );
 }
+
 

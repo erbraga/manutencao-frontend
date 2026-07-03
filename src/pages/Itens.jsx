@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import {useNavigate, useSearchParams} from 'react-router'
 import {IconeSalvar} from '../components/Icons'
 
-import {BarraSuperiorTexto, Selecao, InputTexto, InputNumero, InputData} from '../components/Tela';
+import {BarraSuperiorTexto, Selecao, InputTexto, InputNumero, InputData,
+  BarraSuperiorTitulo
+} from '../components/Tela';
 
 export default function Itens() {
 
@@ -104,16 +106,14 @@ const handleSalvar = () => {
   navigate(`/manutencao?veiculoId=${veiculoSelecionado}`);
 };
 
-
-
-
   return(
       <section className='w-full'>
         <div className='flex flex-col flex-nowrap p-4 md:p-8 border 
         border-slate-400 rounded-3xl shadow-xl w-full m-auto my-4 
           bg-radial-[at_0%_100%] from-slate-300 to-slate-100'>
-
-          <BarraSuperiorTexto titulo = 'Ítens de Manutenção'
+          <BarraSuperiorTitulo 
+            veiculo = {veiculos.find(v => v.id === Number(veiculoSelecionado))?.descricao}/>
+          {/* <BarraSuperiorTexto titulo = 'Ítens de Manutenção'
             descricao = 'Mantenha o cadastro dos ítens de manutenção dos seus veículos informando 
             descrição do ítem, intervalo para próxima manutenção em quilômetros e meses, 
             assim como quilometragem e data da última manutenção.'
@@ -121,7 +121,7 @@ const handleSalvar = () => {
           <h3 className="flex flex-col w-full mt-4 bg-white rounded-xl border 
           border-slate-400 h-8 p-1 font-bold text-center">
             {veiculos.find(v => v.id === Number(veiculoSelecionado))?.descricao}
-          </h3>
+          </h3> */}
         </div>
 
         <ItensTabela 
