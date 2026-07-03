@@ -113,15 +113,6 @@ const handleSalvar = () => {
           bg-radial-[at_0%_100%] from-slate-300 to-slate-100'>
           <BarraSuperiorTitulo 
             veiculo = {veiculos.find(v => v.id === Number(veiculoSelecionado))?.descricao}/>
-          {/* <BarraSuperiorTexto titulo = 'Ítens de Manutenção'
-            descricao = 'Mantenha o cadastro dos ítens de manutenção dos seus veículos informando 
-            descrição do ítem, intervalo para próxima manutenção em quilômetros e meses, 
-            assim como quilometragem e data da última manutenção.'
-          />
-          <h3 className="flex flex-col w-full mt-4 bg-white rounded-xl border 
-          border-slate-400 h-8 p-1 font-bold text-center">
-            {veiculos.find(v => v.id === Number(veiculoSelecionado))?.descricao}
-          </h3> */}
         </div>
 
         <ItensTabela 

@@ -22,10 +22,6 @@ export function Selecao({label, value, name, className, opcoes, onChange}){
             {opcao.texto}
           </option>
         ))}
-
-        {/* {dados.veiculos.map((item) => (
-        <option key={item.id} value={item.id}>{item.descricao}</option>
-        ))} */}
       </select>
     </div>
   );
@@ -82,7 +78,7 @@ export function InputBotaoEditar({label, name, className, onClick, onCancelar, o
               <div 
                 className='w-full flex flex-row text-white bg-red-500 
                   hover:bg-cyan-400 border-2 border-red-700 rounded-xl p-2 gap-2 items-center'
-                onClick={onClick}>
+                onClick={onCancelar}>
                 <IconeSalvar className="cursor-pointer" />
                 <span>{"Cancelar"}</span>
               </div>
@@ -91,7 +87,7 @@ export function InputBotaoEditar({label, name, className, onClick, onCancelar, o
               <div 
                 className='w-full flex flex-row text-white bg-sky-500 
                   hover:bg-cyan-400 border-2 border-sky-700 rounded-xl p-2 gap-2 items-center'
-                onClick={onCancelar}>
+                onClick={onClick}>
                 <IconeSalvar className="cursor-pointer" />
                 <span>{"Atualizar"}</span>
               </div>
@@ -235,10 +231,9 @@ export function Modal({ isOpen, onClose, veiculoNome }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center 
-      bg-slate-900/40 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+      bg-black/40 backdrop-blur-sm p-4 animate-in fade-in duration-200">
       <div className="w-full max-w-md bg-white border border-slate-400 
-        rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
-        
+        rounded-3xl shadow-2xl p-6">
         {/* Cabeçalho do Modal */}
         <div className="flex items-center justify-between p-4 border-b border-slate-400 
           bg-radial-[at_0%_100%] from-slate-300 to-slate-100 text-red-700 ">
@@ -258,23 +253,70 @@ export function Modal({ isOpen, onClose, veiculoNome }) {
         {/* Conteúdo */}
         <div className="p-6 text-slate-600">
           <p className="mb-4 text-base">
-            Não é possível excluir o veículo <strong className="text-slate-900">"{veiculoNome}"</strong>.
+            Não é possível excluir o veículo <strong className="text-slate-900">
+            {veiculoNome}</strong>.
           </p>
-          <p className="text-sm bg-slate-50 border border-slate-200 p-3 rounded-xl text-slate-500">
-            Existem ordens de manutenção ativas vinculadas a este registro. Remova ou altere as manutenções deste veículo antes de tentar excluí-lo.
+          <p className="text-sm bg-slate-100 border border-slate-300 p-3 rounded-xl">
+            Existem itens de manutenção vinculados a este registro. Remova as manutenções 
+            deste veículo antes de tentar excluí-lo.
           </p>
         </div>
 
         {/* Rodapé / Ações */}
-        <div className="flex justify-end p-4 border-t border-slate-100 bg-slate-50">
+        <div className='flex flex-row w-full justify-end p-4'>
+        <div className="w-fit border-2 border-white rounded-xl">
           <button
             onClick={onClose}
-            className="bg-slate-800 hover:bg-slate-900 text-white font-semibold py-2 px-5 rounded-xl text-sm transition-colors shadow-md"
-          >
-            Entendido
-          </button>
+            className="bg-red-500 border-2 border-red-700 hover:bg-red-700 py-2 px-5 
+            rounded-xl font-semibold text-sm text-white"
+          >ok</button>
+        </div>
         </div>
 
+      </div>
+    </div>
+  );
+}
+
+export function ModalConfirmacao({ isOpen, onClose, onConfirm, veiculoNome }) {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center 
+      bg-black/40 backdrop-blur-sm p-4 animate-fade-in duration-200">
+      <div className="w-full max-w-md bg-white border border-slate-400 
+        rounded-3xl shadow-2xl p-6">
+        {/* Cabeçalho do Modal */}
+        <div className="flex items-center gap-3 text-red-600 mb-4">
+          <div className="p-2 bg-red-100 rounded-full">
+            {/* Ícone de aviso simplificado em SVG */}
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+            </svg>
+          </div>
+          <h2 className="text-2xl font-bold text-slate-800">Confirmar Exclusão</h2>
+        </div>
+        
+        <p className="text-slate-600 text-lg mb-6 leading-relaxed">
+          Tem certeza de que deseja excluir permanentemente o veículo <span className="font-semibold text-slate-900">"{veiculoNome}"</span>? Esta ação não poderá ser desfeita.
+        </p>
+        
+        <div className="flex flex-row gap-3 justify-end w-full">
+          <button 
+            type="button"
+            onClick={onClose}
+            className="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-xl font-medium text-slate-700 transition-colors w-1/2 md:w-auto"
+          >
+            Cancelar
+          </button>
+          <button 
+            type="button"
+            onClick={onConfirm}
+            className="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl font-medium shadow-md shadow-red-200 transition-colors w-1/2 md:w-auto"
+          >
+            Excluir
+          </button>
+        </div>
       </div>
     </div>
   );

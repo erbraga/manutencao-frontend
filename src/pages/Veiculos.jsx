@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
 import {InputBotaoEditar, InputBotaoSalvar, BarraSuperiorTexto, BotaoHorizontal, 
-  Modal} from '../components/Tela';
+  Modal, ModalConfirmacao} from '../components/Tela';
 import {IconeEditar, IconeDeletar} from '../components/Icons'
 
 export default function Veiculos() {
@@ -18,6 +18,9 @@ function VeiculosPrincipal(){
   const [modalAberto, setModalAberto] = useState(false);
   const [veiculoBloqueadoNome, setVeiculoBloqueadoNome] = useState('');
 
+  const [modalConfirmacaoAberto, setModalConfirmacaoAberto] = useState(false);
+  const [veiculoParaExcluir, setVeiculoParaExcluir] = useState(null);
+  
   const [veiculos, setVeiculos] = useState(() => {
     const armazenados = localStorage.getItem("veiculos");
     return armazenados ? JSON.parse(armazenados) : [];
@@ -84,16 +87,25 @@ const handleCancelar = () => {
     }
 
     // 3. Confirmação nativa simples antes de apagar permanentemente
-    if (confirm("Deseja realmente excluir este veículo?")) {
-      setVeiculos((prev) => prev.filter((veiculo) => veiculo.id !== id));
+    setVeiculoParaExcluir({ id, descricao });
+    setModalConfirmacaoAberto(true);
+    // if (confirm("Deseja realmente excluir este veículo?")) {
+    //   setVeiculos((prev) => prev.filter((veiculo) => veiculo.id !== id));
+
+    }
+  //}
+
+  const confirmarExclusao = () => {
+    if (veiculoParaExcluir) {
+      setVeiculos((prev) => prev.filter((veiculo) => veiculo.id !== veiculoParaExcluir.id));
+      setModalConfirmacaoAberto(false);
+      setVeiculoParaExcluir(null);
     }
   };
 
   const editarVeiculo = (veiculo) => {
     setVeiculoEditando(veiculo); // envia id e descrição para o input
   };
-
-  
 
   return(
     <section className='w-full'>
@@ -116,7 +128,6 @@ const handleCancelar = () => {
         <InputBotaoSalvar 
           name="veiculo" 
           label="Cadastre um novo veículo aqui"
-          onSalvar={salvarVeiculo}
           onClick={handleSalvar}
           onChange={(e) => setValor(e.target.value)}
           veiculoEditando={veiculoEditando}
@@ -133,14 +144,21 @@ const handleCancelar = () => {
       />
 
       {/* Renderização do Modal de Bloqueio */}
-        <Modal 
-          isOpen={modalAberto} 
-          onClose={() => setModalAberto(false)} 
-          veiculoNome={veiculoBloqueadoNome}
+      <Modal 
+        isOpen={modalAberto} 
+        onClose={() => setModalAberto(false)} 
+        veiculoNome={veiculoBloqueadoNome}
+      />
+
+      <ModalConfirmacao
+        isOpen={modalConfirmacaoAberto}
+        onClose={() => { setModalConfirmacaoAberto(false); setVeiculoParaExcluir(null); }}
+        onConfirm={confirmarExclusao}
+        veiculoNome={veiculoParaExcluir?.descricao}
       />
 
     </section>
-  )
+  );
 }
 
 function VeiculosTabela({ className, veiculos, excluirVeiculo, editarVeiculo }) {
