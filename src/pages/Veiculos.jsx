@@ -147,8 +147,14 @@ const handleCancelar = () => {
       <Modal 
         isOpen={modalAberto} 
         onClose={() => setModalAberto(false)} 
-        veiculoNome={veiculoBloqueadoNome}
-      />
+        // veiculoNome={veiculoBloqueadoNome}
+        titulo = {
+          <>Não é possível excluir o veículo <strong className="text-slate-900">
+            {veiculoBloqueadoNome}</strong>.</>
+        }
+        texto = <>Existem itens de manutenção vinculados a este registro. Remova as 
+          manutenções deste veículo antes de tentar excluí-lo.</>
+        />
 
       <ModalConfirmacao
         isOpen={modalConfirmacaoAberto}
@@ -180,10 +186,10 @@ function VeiculosTabela({ className, veiculos, excluirVeiculo, editarVeiculo }) 
                   w-full md:w-1/4">
                   <BotaoHorizontal 
                     onClick={() => navigate(`/manutencao?veiculoId=${veiculo.id}`)}
-                    legenda = 'Manutenções' cores = 'bg-lime-100 border-lime-300'/>
+                    legenda = 'Manutenções' cores = 'bg-blue-100 border-blue-300'/>
                   <BotaoHorizontal 
                     onClick={() => editarVeiculo(veiculo)}
-                    legenda = 'Editar' cores = 'bg-blue-100 border-blue-300'/>
+                    legenda = 'Editar' cores = 'bg-lime-100 border-lime-300'/>
                   <BotaoHorizontal 
                     onClick={() => excluirVeiculo(veiculo.id, veiculo.descricao)}
                     legenda = 'Excluir' cores = 'bg-red-100 border-red-300'/>

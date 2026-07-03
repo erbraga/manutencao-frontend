@@ -76,8 +76,9 @@ export function InputBotaoEditar({label, name, className, onClick, onCancelar, o
           <div className='flex flex-row w-full md:w-1/4 gap-2'>
             <div className = 'w-1/2 border-2 border-white rounded-xl'>
               <div 
-                className='w-full flex flex-row text-white bg-red-500 
-                  hover:bg-red-400 border-2 border-red-700 rounded-xl p-2 gap-2 items-center'
+                className='w-full flex flex-row text-white bg-sky-500 
+                  hover:bg-sky-300 border-2 border-sky-700 rounded-xl p-2 gap-2 
+                  items-center'
                 onClick={onCancelar}>
                 <IconeSalvar className="cursor-pointer" />
                 <span>{"Cancelar"}</span>
@@ -85,8 +86,9 @@ export function InputBotaoEditar({label, name, className, onClick, onCancelar, o
             </div>
             <div className = 'w-1/2 border-2 border-white rounded-xl'>
               <div 
-                className='w-full flex flex-row text-white bg-sky-500 
-                  hover:bg-cyan-400 border-2 border-sky-700 rounded-xl p-2 gap-2 items-center'
+                className='w-full flex flex-row text-white bg-red-500 
+                  hover:bg-red-300 border-2 border-red-700 rounded-xl p-2 gap-2 
+                  items-center'
                 onClick={onClick}>
                 <IconeSalvar className="cursor-pointer" />
                 <span>{"Atualizar"}</span>
@@ -113,8 +115,8 @@ export function InputBotaoSalvar({label, name, className, onClick, onChange, val
         />
         <div className = 'md:w-1/4 border-2 border-white rounded-xl'>
           <div 
-            className='w-full flex flex-row text-white bg-sky-500 
-              hover:bg-cyan-400 border-2 border-sky-700 rounded-xl p-2 gap-2 items-center'
+            className='w-full flex flex-row text-white bg-red-500 
+              hover:bg-red-300 border-2 border-red-700 rounded-xl p-2 gap-2 items-center'
             onClick={onClick}
           >
             <IconeSalvar className="cursor-pointer" />
@@ -125,7 +127,6 @@ export function InputBotaoSalvar({label, name, className, onClick, onChange, val
     </div>
   );
 }
-
 
 export function SomarPrazo({prazo, data}){
   const dataISO = new Date(data + "T00:00:00");
@@ -226,7 +227,7 @@ export function BotaoHorizontal({onClick, legenda, cores}){
   );
 }
 
-export function Modal({ isOpen, onClose, veiculoNome }) {
+export function Modal({ isOpen, onClose, veiculoNome, titulo, texto }) {
   if (!isOpen) return null;
 
   return (
@@ -242,14 +243,12 @@ export function Modal({ isOpen, onClose, veiculoNome }) {
 
         {/* Conteúdo */}
         <div className=" text-slate-600">
-          <p className="mb-6">
-            Não é possível excluir o veículo <strong className="text-slate-900">
-            {veiculoNome}</strong>.
-          </p>
-          <p className="bg-slate-100 border border-slate-300 p-3 rounded-xl">
-            Existem itens de manutenção vinculados a este registro. Remova as manutenções 
-            deste veículo antes de tentar excluí-lo.
-          </p>
+          <div className="mb-6">
+            {titulo}
+          </div>
+          <div className="bg-slate-100 border border-slate-300 p-3 rounded-xl">
+            {texto}
+          </div>
         </div>
 
         {/* Rodapé / Ações */}

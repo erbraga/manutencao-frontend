@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router';
 import {IconeAtualizar, IconeEditar, IconeDeletar, IconeMais, IconeVoltar} from '../components/Icons';
 import {BarraSuperiorTexto, Selecao, InputData, InputNumero, FormatarDataBr, SomarPrazo,
-  BlocoVertical, BlocoHorizontal, BarraSuperiorTitulo, BotaoFlutuanteMobile
+  BlocoVertical, BlocoHorizontal, BarraSuperiorTitulo, BotaoFlutuanteMobile, Modal
 } from '../components/Tela';
 
 export default function Itens() {
@@ -15,6 +15,7 @@ export default function Itens() {
 }
 
 function ManutencaoPrincipal(){
+  const [modalAberto, setModalAberto] = useState(false);
   const [searchParams] = useSearchParams();
   const veiculoIdViaUrl = searchParams.get('veiculoId');
   const navigate = useNavigate();
@@ -63,10 +64,19 @@ function ManutencaoPrincipal(){
   };
 
   const atualizarItem = (id) => {
-    console.log("click")
+    
+    const itemAtual = itens.find(item => Number(item.id) === Number(id));
+    const dataAtualizacaoItemAtual = itemAtual.ultima_troca_data;
+    const kmAtualizacaoItemAtual = itemAtual.ultima_troca_km;
+    const hoje = new Date().toISOString().split("T")[0];
     // Validação básica para garantir que o usuário preencheu os campos do topo
-    if (!dataAtualizacao || !kmAtualizacao) {
-      alert("Por favor, preencha os campos de Data e Quilometragem no topo para atualizar a última troca.");
+    if ((!dataAtualizacao || !kmAtualizacao) ||
+        (dataAtualizacao < dataAtualizacaoItemAtual) ||
+        (kmAtualizacao < kmAtualizacaoItemAtual) ||
+        (dataAtualizacao > hoje)
+      ) {
+      //alert("Por favor, preencha os campos de Data e Quilometragem no topo para atualizar a última troca.");
+      setModalAberto(true);
       return;
     }
 
@@ -103,11 +113,11 @@ function ManutencaoPrincipal(){
           </div>
           <nav className='fixed right-8 bottom-8 md:relative md:right-0 md:bottom-0 
             flex flex-row justify-end items-center gap-2 md:w-1/4'>
-            <BotaoFlutuanteMobile cores="bg-red-200 border-red-400"
+            <BotaoFlutuanteMobile cores="bg-sky-500 hover:bg-sky-300 border-sky-700 text-white"
               onClick={voltarVeiculos} icone = {<IconeVoltar className="cursor-pointer " />}
               legenda = "Voltar"/>
 
-            <BotaoFlutuanteMobile cores="bg-lime-200 border-lime-400"
+            <BotaoFlutuanteMobile cores="bg-red-500 hover:bg-red-300 border-red-700 text-white"
               onClick={handleNovoItem} 
               icone = {<IconeMais className="cursor-pointer "/>}
               legenda = "Novo item"/>
@@ -127,6 +137,14 @@ function ManutencaoPrincipal(){
         </div>
 
       </div>
+
+      <Modal 
+        isOpen={modalAberto} 
+        onClose={() => setModalAberto(false)} 
+        // veiculoNome={veiculoBloqueadoNome}
+        titulo = {<>Não é possível Atualizar o histórico de manutenções.</>}
+        texto = {<TextoRegrasAtualizacaoManutencao/>}
+        />      
 
 
       {/* Tabela Desktop */}
@@ -186,18 +204,21 @@ function ManutencaoTabelaDesktop({className, itens, atualizarItem, editarItem, e
                 <td className='text-center'>{item.ultima_troca_km + item.intervalo_km}</td>
                 <td className='text-center'><SomarPrazo prazo = {item.intervalo_prazo} 
                   data = {item.ultima_troca_data}/></td>
-                <td className=''>{item.veiculoId}</td>
+                <td className='hidden'>{item.veiculoId}</td>
                 <td className='text-center w-40'>
                   <IconeAtualizar 
-                    className="m-1 p-1 rounded-full hover:bg-teal-400 cursor-pointer" 
+                    className="m-1 p-1 rounded-full hover:bg-teal-400 cursor-pointer
+                    text-blue-600 hover:blue-700" 
                     onClick={() => atualizarItem(item.id)}
                   />
                   <IconeEditar 
-                    className="m-1 p-1 rounded-full hover:bg-teal-400 cursor-pointer" 
+                    className="m-1 p-1 rounded-full hover:bg-teal-400 cursor-pointer
+                    text-lime-600 hover:text-lime-700" 
                     onClick={() => editarItem(item.id)}
                   />
                   <IconeDeletar
-                    className="m-1 p-1 rounded-full hover:bg-teal-400 cursor-pointer"
+                    className="m-1 p-1 rounded-full hover:bg-teal-400 cursor-pointer
+                    text-red-600 hover:red-700"
                     onClick={() => excluirItem(item.id)}
                   />
                 </td>
@@ -241,12 +262,12 @@ function ManutencaoTabelaMobile({className, itens, atualizarItem, editarItem, ex
               </> />
             {/* RODAPÉ DO CARD (Ações rápidas fáceis de tocar) */}
             <div className="flex gap-2 pt-1 col-span-2 menor:max-paisagem:col-span-3">
-              <button className="w-full bg-lime-100 border border-lime-300
+              <button className="w-full bg-blue-100 border border-blue-300
               font-medium py-2 rounded-xl text-xs justify-center"
               onClick={() => atualizarItem(item.id)}>
                 Atualizar
               </button>
-                <button className="w-full bg-blue-100 border  border-blue-300 
+                <button className="w-full bg-lime-100 border  border-lime-300 
                 font-medium py-2 rounded-xl text-xs justify-center"
                 onClick={() => editarItem(item.id)}>
                   Editar
@@ -264,3 +285,20 @@ function ManutencaoTabelaMobile({className, itens, atualizarItem, editarItem, ex
   )
 }
 
+function TextoRegrasAtualizacaoManutencao() {
+  return (
+    <div className="">
+      <span className="">Os campos de data e quilometragem precisam ser 
+        preenchidos conforme as seguintes regras:</span>
+      <ul className="list-disc list-outside pl-4">
+        <li className='mt-2'>
+          Utilize uma <strong>data igual ou inferior</strong> à data de hoje.
+        </li>
+        <li>
+          Tanto a <strong>data</strong> quanto a <strong>quilometragem </strong> 
+          devem ser informadas e posteriores à última data ou quilometragem cadastrada.
+        </li>
+      </ul>
+    </div>
+  );
+}
