@@ -47,7 +47,7 @@ function ItensPrincipal(){
         setDescricao(itemParaEditar.descricao || "");
         setIntervaloKm(itemParaEditar.intervalo_km || "");
         setIntervaloPrazo(itemParaEditar.intervalo_prazo || "");
-        setUltimaTrocaKm(itemParaEditar.ultima_troca_km || "");
+        setUltimaTrocaKm(itemParaEditar.ultima_troca_km || 0);
         setUltimaTrocaData(itemParaEditar.ultima_troca_data || "");
         if (itemParaEditar.veiculoId) {
           setVeiculoSelecionado(String(itemParaEditar.veiculoId).trim());
