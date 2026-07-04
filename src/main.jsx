@@ -1,11 +1,11 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Routes, Route, Navigate} from 'react-router'
+import {StrictMode} from 'react'
+import {createRoot} from 'react-dom/client'
+import {BrowserRouter, Routes, Route, Navigate} from 'react-router'
 import './index.css'
 import App from './App.jsx'
-import Manutencao from './pages/Manutencao.jsx'
-import Itens from './pages/Itens.jsx'
-import Veiculos from './pages/Veiculos.jsx'
+import {Manutencoes} from './pages/Manutencoes.jsx'
+import {Itens} from './pages/Itens.jsx'
+import {Veiculos} from './pages/Veiculos.jsx'
 import PaginaNaoEncontrada from './pages/NaoEncontrada.jsx'
 
 createRoot(document.getElementById('root')).render(
@@ -15,7 +15,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/" element={<App />}>
           <Route index element={<Navigate to="/veiculos" replace />} />
           <Route path="/veiculos" element={<Veiculos />} />
-          <Route path='/manutencao' element={<Manutencao />} />
+          <Route path='/manutencoes' element={<Manutencoes />} />
           <Route path="/itens" element={<Itens />} />
           <Route path="*" element={<PaginaNaoEncontrada />}/>
         </Route>

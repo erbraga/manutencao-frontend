@@ -1,20 +1,9 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router';
+import {useState, useEffect} from 'react';
+import {useNavigate} from 'react-router';
+import {InputBotaoEditar, InputBotaoSalvar, BotaoHorizontal, Modal, ModalConfirmacao
+    } from '../components/Tela';
 
-import {InputBotaoEditar, InputBotaoSalvar, BarraSuperiorTexto, BotaoHorizontal, 
-  Modal, ModalConfirmacao} from '../components/Tela';
-import {IconeEditar, IconeDeletar} from '../components/Icons'
-
-export default function Veiculos() {
-
-  return (
-    <div>
-      <VeiculosPrincipal />
-    </div>
-  );
-}
-
-function VeiculosPrincipal(){
+export function Veiculos(){
   const [modalAberto, setModalAberto] = useState(false);
   const [veiculoBloqueadoNome, setVeiculoBloqueadoNome] = useState('');
 
@@ -32,12 +21,11 @@ function VeiculosPrincipal(){
     localStorage.setItem("veiculos", JSON.stringify(veiculos));
   }, [veiculos]);
 
-//################################################
   const [valor, setValor] = useState("");
 
   useEffect(() => {
     if (veiculoEditando) {
-      setValor(veiculoEditando.descricao); // mostra descrição no input
+      setValor(veiculoEditando.descricao);
     }
   }, [veiculoEditando]);
 
@@ -50,10 +38,8 @@ function VeiculosPrincipal(){
 
 const handleCancelar = () => {
     setValor("");
-    setVeiculoEditando(null); // Ao cancelar, redefine e volta para o InputBotaoSalvar
+    setVeiculoEditando(null);
   };
-//################################################
-
 
   const salvarVeiculo = (descricao) => {   
     if (veiculoEditando) {
@@ -62,7 +48,7 @@ const handleCancelar = () => {
           v.id === veiculoEditando.id ? { ...v, descricao } : v
         )
       );
-      setVeiculoEditando(null); // limpa edição
+      setVeiculoEditando(null);
     } else {
       const maiorId = veiculos.length > 0 ? Math.max(...veiculos.map(v => v.id)) : 0;
       const novoVeiculo = { id: maiorId + 1, descricao };
@@ -71,29 +57,20 @@ const handleCancelar = () => {
   };
 
   const excluirVeiculo = (id, descricao) => {
-    // 1. Busca a lista de manutenções guardadas no localStorage
     const armazenadosManutencao = localStorage.getItem("itensManutencao");
     const manutencoes = armazenadosManutencao ? JSON.parse(armazenadosManutencao) : [];
-
-    // 2. Verifica se existe alguma manutenção vinculada ao ID deste veículo
-    // Certifique-se de que a propriedade na sua tabela de manutenção chama-se exatamente 'veiculoId'
     const possuiManutencao = manutencoes.some(m => Number(m.veiculoId) === Number(id));
 
     if (possuiManutencao) {
       setVeiculoBloqueadoNome(descricao);
       setModalAberto(true);
-      return; // Bloqueia a exclusão interrompendo a função
+      return;
 
     }
 
-    // 3. Confirmação nativa simples antes de apagar permanentemente
     setVeiculoParaExcluir({ id, descricao });
     setModalConfirmacaoAberto(true);
-    // if (confirm("Deseja realmente excluir este veículo?")) {
-    //   setVeiculos((prev) => prev.filter((veiculo) => veiculo.id !== id));
-
     }
-  //}
 
   const confirmarExclusao = () => {
     if (veiculoParaExcluir) {
@@ -104,7 +81,7 @@ const handleCancelar = () => {
   };
 
   const editarVeiculo = (veiculo) => {
-    setVeiculoEditando(veiculo); // envia id e descrição para o input
+    setVeiculoEditando(veiculo);
   };
 
   return(
@@ -113,7 +90,6 @@ const handleCancelar = () => {
       border-slate-400 rounded-3xl shadow-xl w-full m-auto my-4 
         bg-radial-[at_0%_100%] from-slate-300 to-slate-100'>
 
-      {/* Alteração dinâmica aqui baseado no estado veiculoEditando */}
       {veiculoEditando ? (
         <InputBotaoEditar 
           name="veiculo" 
@@ -143,11 +119,9 @@ const handleCancelar = () => {
         editarVeiculo={editarVeiculo}
       />
 
-      {/* Renderização do Modal de Bloqueio */}
       <Modal 
         isOpen={modalAberto} 
         onClose={() => setModalAberto(false)} 
-        // veiculoNome={veiculoBloqueadoNome}
         titulo = {
           <>Não é possível excluir o veículo <strong className="text-slate-900">
             {veiculoBloqueadoNome}</strong>.</>
@@ -185,7 +159,7 @@ function VeiculosTabela({ className, veiculos, excluirVeiculo, editarVeiculo }) 
                   menor:max-paisagem:col-span-3
                   w-full md:w-1/4">
                   <BotaoHorizontal 
-                    onClick={() => navigate(`/manutencao?veiculoId=${veiculo.id}`)}
+                    onClick={() => navigate(`/manutencoes?veiculoId=${veiculo.id}`)}
                     legenda = 'Manutenções' cores = 'bg-blue-100 border-blue-300'/>
                   <BotaoHorizontal 
                     onClick={() => editarVeiculo(veiculo)}

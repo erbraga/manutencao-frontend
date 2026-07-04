@@ -1,10 +1,4 @@
-import {Link} from 'react-router';
-import { useState, useEffect } from 'react';
-import {useNavigate} from 'react-router'
-import dados from '../dados.json';
-import {IconePrincipal, IconeHome, IconeItemManutencao, IconeVeiculos, 
-  IconeModoAutomatico, IconeAtualizar, IconeEditar, IconeDeletar, IconeAlerta, 
-  IconeSalvar, IconeVoltar} from './Icons';
+import {IconeAlerta, IconeSalvar, IconeVoltar} from './Icons';
 
 export function Selecao({label, value, name, className, opcoes, onChange}){
   return(

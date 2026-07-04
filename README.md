@@ -1,16 +1,80 @@
-# React + Vite
+# manutencao-frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<br>
 
-Currently, two official plugins are available:
+## Descrição
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Este projeto foi produzido como entrega final do módulo **Desenvolvimento Full Stack Avançado** do curso de **Especialização em Desenvovimento Web** da PUC Rio.
+Trata-se de um MVP (mínimo produto viável) desenvolvido no formato SPA (Single page application ou aplicação em página única) com o objetivo de dar suporte à gestão de manutenções de veículos.
+Esta aplicação é uma página web com persistência dos dados no armazenamento local do navegador web. Funciona off line e precisa de adaptações para consumir uma API backend.
 
-## React Compiler
+<br>
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Instalação
 
-## Expanding the ESLint configuration
+Para instalar a aplicação siga os passoa abaixo: 
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Caso não tenha o Node instalado na sua máquina, siga as instruções de instalação em https://nodejs.org/pt-br/download.
+
+2. Faça o download do repositório no Github em https://github.com/erbraga/manutencao-frontend/archive/refs/heads/main.zip
+
+3. Crie um diretório e extraia os arquivos.
+
+4. Entre no diretório do projeto e instale as dependências, digitando no terminal:
+
+```
+npm install
+```
+<br>
+
+## Como executar
+
+Abra o terminal no diretório onde baixou o repositório e digite:
+```
+npm run dev
+```
+
+5. Abra o navegador no endereço informado no terminal, normalmente é
+```
+http://localhost:5173/
+```
+4. Na barra de navegaçãop do navegador digite
+Para executar basta abrir o arquivo index.html no navegador.
+O layout do aplicativo foi projetado para ser responsivo, por isso muda caso seja executado em modo tablet ou celular.  
+
+<br>
+
+## Funcionalidades
+
+Apesar de ser uma SPA (single page application), podemos dividi-la em três páginas, renderizadas automaticamente pelo servidor web com suas respectivas funcionalidades:
+
+- **veiculos:** é a página exibida ao abrir a aplicação. Exibe os veículos cadastrados e permite fazer a sua gestão. 
+    
+    **Funcionalidades:** 
+    - Editar, cadastrar ou excluir um veículo.
+    - Abrir a página de gestão de manutenções.
+    - 
+    
+
+- **manutencoes:** Exibe os ítens de manutenção do veículo selecionado e permite fazer a sua gestão.
+    
+    **Funcionalidades:** 
+    - atualizar, editar, excluir ou cadastrar um item de manutenção
+    - Calcular e mostrar a data e quilometragem previstas para a próxima manutenção de cada ítem.
+
+- **itens:** Tela de cadastro ou edição de um ítem de manutenção.
+
+
+## Tecnologias utilizadas
+
+
+- **HTML:** Linguagem de marcação utilizada para definir o conteúdo de uma página web.
+
+- **CSS:** Linguagem de estilo utilizada para adicionar formatação à página web.
+- **Tailwind:** Framework CSS que permite agilizar a estilização de páginas web por meio de classes mnemônicas. 
+- **Javascript:** Linguagem de programação utilizada para adicionar comportamento à página web. 
+- **React:** Biblioteca JavaScript para criar interfaces de usuário dinâmicas e reutilizáveis por meio de componentes e  Virtual DOM para atualizar a tela dinâmicamente.
+- **Node.js** Ambiente de execução JavaScript baseado no motor V8 do Chrome. que permite rodar código JavaScript no servidor.
+- **Vite:** O Vite é um empacotador e servidor de desenvolvimento para aplicações web. 
+- **Github:** Ferramenta de versionamento, que permite criar diversas versões do código durante o desenvolvimento da aplicação, além do seu compartilhamento.
+- **Visual Studio Code (VSCode):** Ambiente de desenvolvimento integrado (IDE) que permite editar todo o código do projeto, escrito em diferentes linguagens, em um mesmo ambiente, integrando ainda outras ferramentas como **github**.

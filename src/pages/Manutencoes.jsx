@@ -1,20 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router';
-import {IconeAtualizar, IconeEditar, IconeDeletar, IconeMais, IconeVoltar} from '../components/Icons';
-import {BarraSuperiorTexto, Selecao, InputData, InputNumero, FormatarDataBr, SomarPrazo,
-  BlocoVertical, BlocoHorizontal, BarraSuperiorTitulo, BotaoFlutuanteMobile, Modal
-} from '../components/Tela';
+import {IconeAtualizar, IconeEditar, IconeDeletar, IconeMais, IconeVoltar
+       } from '../components/Icons';
+import {InputData, InputNumero, FormatarDataBr, SomarPrazo, BlocoVertical, 
+      BlocoHorizontal, BarraSuperiorTitulo, BotaoFlutuanteMobile, Modal
+      } from '../components/Tela';
 
-export default function Itens() {
-
-  return (
-    <div>
-      <ManutencaoPrincipal />
-    </div>
-  );
-}
-
-function ManutencaoPrincipal(){
+export function Manutencoes(){
   const [modalAberto, setModalAberto] = useState(false);
   const [searchParams] = useSearchParams();
   const veiculoIdViaUrl = searchParams.get('veiculoId');
@@ -148,7 +140,7 @@ function ManutencaoPrincipal(){
 
 
       {/* Tabela Desktop */}
-      <ManutencaoTabelaDesktop 
+      <ManutencoesTabelaDesktop 
         className='hidden md:table w-full' 
         itens={itensFiltrados}
         atualizarItem = {atualizarItem}
@@ -157,7 +149,7 @@ function ManutencaoPrincipal(){
       />
 
       {/* Cards Mobile */}
-      <ManutencaoTabelaMobile 
+      <ManutencoesTabelaMobile 
         className='md:hidden paisagem:grid paisagem:grid-cols-2 paisagem:gap-2' 
         itens={itensFiltrados}
         atualizarItem = {atualizarItem}
@@ -167,7 +159,7 @@ function ManutencaoPrincipal(){
     </section>
   )
 }
-function ManutencaoTabelaDesktop({className, itens, atualizarItem, editarItem, excluirItem}){
+function ManutencoesTabelaDesktop({className, itens, atualizarItem, editarItem, excluirItem}){
 
   return(
     <div className={className}>
@@ -230,7 +222,7 @@ function ManutencaoTabelaDesktop({className, itens, atualizarItem, editarItem, e
   )
 }
 
-function ManutencaoTabelaMobile({className, itens, atualizarItem, editarItem, excluirItem}){
+function ManutencoesTabelaMobile({className, itens, atualizarItem, editarItem, excluirItem}){
   return(
     <div className='md:hidden paisagem:grid paisagem:grid-cols-2 paisagem:gap-2'>
       {itens.map((item) => (

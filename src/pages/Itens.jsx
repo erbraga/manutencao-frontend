@@ -1,21 +1,9 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import {useNavigate, useSearchParams} from 'react-router'
 import {IconeVoltar, IconeSalvar} from '../components/Icons'
+import {InputNumero, InputTexto, InputData, BarraSuperiorTitulo, Modal} from '../components/Tela';
 
-import {BarraSuperiorTexto, Selecao, InputTexto, InputNumero, InputData,
-  BarraSuperiorTitulo, Modal
-} from '../components/Tela';
-
-export default function Itens() {
-
-  return (
-    <div>
-      <ItensPrincipal />
-    </div>
-  );
-}
-
-function ItensPrincipal(){
+export function Itens(){
   const [modalAberto, setModalAberto] = useState(false);
   const [searchParams] = useSearchParams();
   const veiculoIdViaUrl = searchParams.get('veiculoId');
@@ -65,7 +53,7 @@ function ItensPrincipal(){
 
 
   const handleVoltar = () => {
-    navigate(`/manutencao?veiculoId=${veiculoSelecionado}`)
+    navigate(`/manutencoes?veiculoId=${veiculoSelecionado}`)
   };
 
 const handleSalvar = () => {
@@ -88,7 +76,6 @@ const handleSalvar = () => {
     }
 
   if (itemIdViaUrl) {
-    // Se existe itemId na URL, estamos EDITANDO
     itens = itens.map(item => {
       if (String(item.id) === String(itemIdViaUrl)) {
         return {
@@ -104,8 +91,6 @@ const handleSalvar = () => {
       return item;
     });
   } else {
-    // Se não existe itemId na URL, é um NOVO ITEM
-
 
     const maiorId = itens.length > 0 ? Math.max(...itens.map(i => i.id)) : 0;
     const novoItem = {
@@ -121,7 +106,7 @@ const handleSalvar = () => {
   }
 
   localStorage.setItem("itensManutencao", JSON.stringify(itens));
-  navigate(`/manutencao?veiculoId=${veiculoSelecionado}`);
+  navigate(`/manutencoes?veiculoId=${veiculoSelecionado}`);
 };
 
   return(
@@ -145,7 +130,6 @@ const handleSalvar = () => {
       <Modal 
         isOpen={modalAberto} 
         onClose={() => setModalAberto(false)} 
-        // veiculoNome={veiculoBloqueadoNome}
         titulo = {<>Não é possível salvar o item de manutenção.</>}
         texto = {<TextoModal/>}
       />
@@ -192,8 +176,6 @@ function ItensTabela({descricao, setDescricao, intervaloKm, setIntervaloKm,
 function TextoModal() {
   return (
     <div className="">
-      {/* <span className="">O ccs campos de data e quilometragem precisam ser 
-        preenchidos conforme as seguintes regras:</span> */}
       <ul className="list-disc list-outside pl-4">
         <li className='mt-2'>Todos os campos devem ser preenchidos.</li>
         <li>O valor da quilometragem para troca deve estar entre 100 e 100 mil.</li>
