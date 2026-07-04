@@ -93,6 +93,28 @@ export function Manutencoes(){
     navigate(`/veiculos`);
   }
 
+  const somarPrazo = (prazo, data) => {
+    if (!data || typeof data !== 'string') {
+        return ""; // Ou retorne "" se preferir deixar em branco
+      }
+
+    let dataISO = new Date(data + "T00:00:00");
+    dataISO.setMonth(dataISO.getMonth() + Number(prazo));
+    const dataCalculadaString = dataISO.toISOString().split('T')[0];
+    return dataCalculadaString;
+  }
+
+  const compararDatas = (data1, data2) => {
+    data1 = new Date(data1 + "T00:00:00");
+    data2 = new Date(data2 + "T00:00:00");
+      return (data1 < data2)
+  }
+
+
+
+
+  
+
   return(
     <section className=''>
       <div className='flex flex-col flex-nowrap w-full my-4 p-4 md:p-8 border 
@@ -133,38 +155,46 @@ export function Manutencoes(){
       <Modal 
         isOpen={modalAberto} 
         onClose={() => setModalAberto(false)} 
-        // veiculoNome={veiculoBloqueadoNome}
         titulo = {<>Não é possível atualizar o histórico de manutenções.</>}
         texto = {<TextoModal/>}
         />      
-
 
       {/* Tabela Desktop */}
       <ManutencoesTabelaDesktop 
         className='hidden md:table w-full' 
         itens={itensFiltrados}
+        kmAtualizacao={kmAtualizacao}
+        dataAtualizacao={dataAtualizacao}
         atualizarItem = {atualizarItem}
         editarItem={editarItem}
         excluirItem={excluirItem}
+        somarPrazo = {somarPrazo}
+        compararDatas = {compararDatas}
       />
 
       {/* Cards Mobile */}
       <ManutencoesTabelaMobile 
         className='md:hidden paisagem:grid paisagem:grid-cols-2 paisagem:gap-2' 
         itens={itensFiltrados}
+        kmAtualizacao={kmAtualizacao}
+        dataAtualizacao={dataAtualizacao}
         atualizarItem = {atualizarItem}
         editarItem={editarItem}
         excluirItem={excluirItem}
+        somarPrazo = {somarPrazo}
+        compararDatas = {compararDatas}
       />
     </section>
   )
 }
-function ManutencoesTabelaDesktop({className, itens, atualizarItem, editarItem, excluirItem}){
+
+function ManutencoesTabelaDesktop({className, itens, atualizarItem, kmAtualizacao, 
+  dataAtualizacao, editarItem, excluirItem, somarPrazo, compararDatas}){
 
   return(
     <div className={className}>
-      <table className='mt-1 w-full border border-slate-400 rounded-3xl shadow-xl/10 bg-white 
-        overflow-hidden border-separate border-spacing-0 
+      <table className='mt-1 w-full border border-slate-400 rounded-3xl shadow-xl/10 
+        bg-white overflow-hidden border-separate border-spacing-0 
         [&_th]:p-2 [&_td]:p-2 [&_td]:border-b [&_td]:border-b-slate-300 
         [&_th]:border-b-2 [&_th]:border-b-slate-300'>
         <thead className=''>
@@ -186,56 +216,73 @@ function ManutencoesTabelaDesktop({className, itens, atualizarItem, editarItem, 
           </tr>
         </thead>
         <tbody className=''>
-          {itens.map((item) => (
-            <tr key={item.id} className='hover:bg-teal-200'>
-              <td className=''>{item.descricao}</td>
-                <td className='text-center'>{item.intervalo_km}</td>
-                <td className='text-center'>{item.intervalo_prazo}</td>
-                <td className='text-center'>{item.ultima_troca_km}</td>
-                <td className='text-center'><FormatarDataBr data = {item.ultima_troca_data} /></td>
-                <td className='text-center'>{item.ultima_troca_km + item.intervalo_km}</td>
-                <td className='text-center'><SomarPrazo prazo = {item.intervalo_prazo} 
-                  data = {item.ultima_troca_data}/></td>
-                <td className='hidden'>{item.veiculoId}</td>
-                <td className='text-center w-40'>
-                  <IconeAtualizar 
-                    className="m-1 p-1 rounded-full hover:bg-teal-400 cursor-pointer
-                    text-blue-600 hover:blue-700" 
-                    onClick={() => atualizarItem(item.id)}
-                  />
-                  <IconeEditar 
-                    className="m-1 p-1 rounded-full hover:bg-teal-400 cursor-pointer
-                    text-lime-600 hover:text-lime-700" 
-                    onClick={() => editarItem(item.id)}
-                  />
-                  <IconeDeletar
-                    className="m-1 p-1 rounded-full hover:bg-teal-400 cursor-pointer
-                    text-red-600 hover:red-700"
-                    onClick={() => excluirItem(item.id)}
-                  />
-                </td>
-            </tr>
-          ))}
+          {itens.map((item) => {
+          const proximaKm = Number(item.ultima_troca_km) + Number(item.intervalo_km);
+          const kmVenceu = kmAtualizacao && proximaKm < kmAtualizacao;
+          const proximaDataString = somarPrazo(item.intervalo_prazo, item.ultima_troca_data)
+          const dataVenceu = compararDatas(proximaDataString, dataAtualizacao);        
+          const deveAlertar = kmVenceu || dataVenceu;
+        
+          return(
+              <tr key={item.id} className='hover:bg-teal-200'>
+                <td className=''>{item.descricao}</td>
+                  <td className='text-center'>{item.intervalo_km}</td>
+                  <td className='text-center'>{item.intervalo_prazo}</td>
+                  <td className='text-center'>{item.ultima_troca_km}</td>
+                  <td className='text-center'><FormatarDataBr data = {item.ultima_troca_data} /></td>
+                  <td className='text-center'>{item.ultima_troca_km + item.intervalo_km}</td>
+                  <td className='text-center'>
+                    <SomarPrazo 
+                      prazo = {item.intervalo_prazo} 
+                      data = {item.ultima_troca_data}/></td>
+                  <td className='hidden'>{item.veiculoId}</td>
+
+                  <td className='text-center w-40'>
+                    <IconeAtualizar 
+                      className="m-1 p-1 rounded-full hover:bg-teal-400 cursor-pointer
+                      text-blue-600 hover:blue-700" 
+                      onClick={() => atualizarItem(item.id)}
+                    />
+                    <IconeEditar 
+                      className="m-1 p-1 rounded-full hover:bg-teal-400 cursor-pointer
+                      text-lime-600 hover:text-lime-700" 
+                      onClick={() => editarItem(item.id)}
+                    />
+                    <IconeDeletar
+                      className="m-1 p-1 rounded-full hover:bg-teal-400 cursor-pointer
+                      text-red-600 hover:red-700"
+                      onClick={() => excluirItem(item.id)}
+                    />
+                    <div className='flex justify-center'>{deveAlertar && <Alerta />}</div>
+                  </td>
+              
+              </tr>
+        )})}
         </tbody>
       </table>
     </div>
-  )
+  );
 }
 
-function ManutencoesTabelaMobile({className, itens, atualizarItem, editarItem, excluirItem}){
+function ManutencoesTabelaMobile({className, itens, atualizarItem, kmAtualizacao, 
+  dataAtualizacao, editarItem, excluirItem,somarPrazo, compararDatas}){
   return(
     <div className='md:hidden paisagem:grid paisagem:grid-cols-2 paisagem:gap-2'>
-      {itens.map((item) => (
+      {itens.map((item) => {
+          const proximaKm = Number(item.ultima_troca_km) + Number(item.intervalo_km);
+          const kmVenceu = kmAtualizacao && proximaKm < kmAtualizacao;
+          const proximaDataString = somarPrazo(item.intervalo_prazo, item.ultima_troca_data)
+          const dataVenceu = compararDatas(proximaDataString, dataAtualizacao);        
+          const deveAlertar = kmVenceu || dataVenceu;           
+          return(
         <article key={item.id} className='w-full mx-auto bg-white border border-slate-400 
           rounded-3xl p-4 shadow-xl mb-4'>
           {/* CABEÇALHO DO CARD (Nome do item e status) */}
-          <div className='flex justify-between items-start border-b border-slate-300 
+          <div className='flex justify-between items-center border-b border-slate-300 
             pb-1 mb-1'>
             <h3 className="text-xl font-bold">{item.descricao}</h3>
             {/* Badge de Status/Ações */}
-            <span className="text-xs bg-amber-50 text-amber-600 font-semibold 
-              px-2 py-1 rounded-full border border-amber-300">
-              Atenção</span>
+            <div className=''> {deveAlertar && <Alerta />}</div>
           </div >
           {/* CORPO DO CARD (Grade de Informações) */}
           <div className="grid grid-cols-2 menor:max-paisagem:grid-cols-3 gap-2 text-sm">
@@ -249,7 +296,7 @@ function ManutencoesTabelaMobile({className, itens, atualizarItem, editarItem, e
             
             {/* Bloco: Próxima Troca (Em destaque ocupando as 2 colunas) */}
             <BlocoHorizontal titulo = 'Próxima troca: ' 
-              texto = <>{item.ultima_troca_km + item.intervalo_km} km ou {<SomarPrazo 
+              texto = <>{proximaKm} km ou {<SomarPrazo 
               prazo = {item.intervalo_prazo} data = {item.ultima_troca_data}/>} 
               </> />
             {/* RODAPÉ DO CARD (Ações rápidas fáceis de tocar) */}
@@ -272,7 +319,7 @@ function ManutencoesTabelaMobile({className, itens, atualizarItem, editarItem, e
             </div>
           </div>  
         </article>
-      ))}
+      )})}
     </div>
   )
 }
@@ -293,4 +340,13 @@ function TextoModal() {
       </ul>
     </div>
   );
+}
+
+function Alerta(){
+  return(
+    <div className='w-24 md:w-24 text-center bg-red-500 border 
+      border-red-500 rounded-xl text-white font-bold'>
+      Vencida
+    </div>
+  )
 }
