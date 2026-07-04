@@ -243,10 +243,11 @@ export function Modal({ isOpen, onClose, veiculoNome, titulo, texto }) {
 
         {/* Conteúdo */}
         <div className=" text-slate-600">
-          <div className="mb-6">
+          <div className="mb-6 text-justify">
             {titulo}
           </div>
-          <div className="bg-slate-100 border border-slate-300 p-3 rounded-xl">
+          <div className="bg-slate-100 border border-slate-300 p-3 rounded-xl 
+          text-justify">
             {texto}
           </div>
         </div>
@@ -282,7 +283,7 @@ export function ModalConfirmacao({ isOpen, onClose, onConfirm, veiculoNome }) {
           <h2 className="text-2xl font-bold">Confirmar Exclusão</h2>
         </div>
         {/* Conteúdo */}
-        <p className="text-slate-600 mb-6 leading-relaxed">
+        <p className="text-slate-600 mb-6 leading-relaxed text-justify">
           Tem certeza de que deseja excluir o veículo 
           <span className="font-semibold text-slate-900"> {veiculoNome}</span>
           ? Esta ação não poderá ser desfeita.

@@ -6,6 +6,7 @@ import App from './App.jsx'
 import Manutencao from './pages/Manutencao.jsx'
 import Itens from './pages/Itens.jsx'
 import Veiculos from './pages/Veiculos.jsx'
+import PaginaNaoEncontrada from './pages/NaoEncontrada.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -16,6 +17,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/veiculos" element={<Veiculos />} />
           <Route path='/manutencao' element={<Manutencao />} />
           <Route path="/itens" element={<Itens />} />
+          <Route path="*" element={<PaginaNaoEncontrada />}/>
         </Route>
       </Routes>
     </BrowserRouter>

@@ -146,7 +146,7 @@ const handleSalvar = () => {
         isOpen={modalAberto} 
         onClose={() => setModalAberto(false)} 
         // veiculoNome={veiculoBloqueadoNome}
-        titulo = {<>Não é possível Atualizar o histórico de manutenções.</>}
+        titulo = {<>Não é possível salvar o item de manutenção.</>}
         texto = {<TextoModal/>}
       />
     </section>
