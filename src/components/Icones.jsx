@@ -4,10 +4,7 @@ export function IconePrincipal({className}){
             <svg
                 fill="currentColor" 
                 viewBox="0 0 41.378 41.378" 
-
                 width="24px" >
-                
-                
                 <g> 
                 <g> <g> 
                 <path d="M40.897,16.601c-0.257-2.263-6.35,0-6.35,0l-0.359,

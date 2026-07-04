@@ -133,8 +133,6 @@ export function SomarPrazo({prazo, data}){
   );
 }
 
-
-
 export function FormatarDataBr({data}) {
   const dataObj = (data instanceof Date) ? data : new Date(data + "T00:00:00");
   const dataFormatada = dataObj.toLocaleDateString("pt-BR");
@@ -167,7 +165,6 @@ export function BarraSuperiorTitulo({veiculo}){
       </div>
   )
 }
-
 
 export function BlocoVertical({ titulo, valor1, valor2}){
   return (
@@ -264,7 +261,6 @@ export function Modal({ isOpen, onClose, veiculoNome, titulo, texto }) {
 
 export function ModalConfirmacao({ isOpen, onClose, onConfirm, veiculoNome }) {
   if (!isOpen) return null;
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center 
       bg-black/40 backdrop-blur-sm p-4 animate-fade-in duration-200">
