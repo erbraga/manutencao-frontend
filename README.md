@@ -12,95 +12,22 @@ Esta aplicação é uma página web com persistência dos dados no armazenamento
 
 ## Instalação
 
-A API foi desenvolvida na linguagem Python, utilizando o framework Flask. Para executá-la é preciso que o interpretador Python esteja instalado no computador, assim como todas as  dependências *(bibliotecas utilizadas no código da aplicação)*. Para tanto é necessário seguir os passos abaixo:
+A API foi desenvolvida na linguagem Javascript, utilizando a biblioteca React. Para executá-la é preciso que o ambiente de execução Node JS esteja instalado no computador, assim como todas as  dependências *(bibliotecas utilizadas no código da aplicação)*. Para tanto é necessário seguir os passos abaixo:
 
-1. Garantir que o interpretador Python esteja instalado.
+1. Garantir que o *Node* esteja instalado, caso negativo, siga as instruções de instalação em https://nodejs.org/pt-br/download.
 
-    As principais distribuições Linux já vêm com o interpretador Python instalado em uma versão razoavelmente atual, como é o caso do Ubuntu, distribuição Linux utilizada para criação do projeto. No Windows será necessário instalá-lo, caso não tenha feito antes, se for o caso acesse https://www.python.org/downloads/windows/ e siga as instruções apresentadas.
+2. Fazer o download da aplicação em https://github.com/erbraga/manutencao-frontend/archive/refs/heads/main.zip e extrair o diretório compactado no HD.
 
-2. Fazer o download da aplicação em https://github.com/erbraga/manutencao-api/archive/refs/heads/main.zip e extraia o diretório compactado no HD.
-
-3. Abrir o terminal e executar os comandos abaixo para criar e ativar o ambiente virtual e instalar as dependências.
+3. Abrir o terminal e executar o comando ```npm install``` para instalar as dependências.
     
-    No Ubuntu:
-    ```
-    cd ./ manutencao-api-main
-    python3 -m venv .venv
-    source ./.bin/activate
-    pip install -r requirements.txt
-    ```
-    
-    No Windows:
-    ```
-    cd manutencao-api-main
-    py -m venv .venv
-    .venv\Scripts\activate.bat
-    pip install -r requirements.txt
-    ```
-
-<br>
-
-## Como executar
-Após a criação e ativação do ambiente virtual a aplicação pode ser executada por meio do comando ``` flask run  ``` no terminal. 
-
-<br>
-
-## Como utilizar
-
-A APi pode ser consumida por meio de requisições HTML para as rotas definidas.
-Como a aplicação foi desenvolvida para fins acadêmicos, está hospedada em servidor local, por isso o domínio é *127.0.0.1:5000* e as rotas são:
-
-***/apidocs/***<br>
-Rota criada pelo **Swagger**  que mostra uma página gerada automaticamente pela ferramenta para exibir a documentação e permite testar todas as rotas da API. 
-
-<br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Instalação
-
-Para instalar a aplicação siga os passoa abaixo: 
-
-1. Caso não tenha o Node instalado na sua máquina, siga as instruções de instalação em https://nodejs.org/pt-br/download.
-
-2. Faça o download do repositório no Github em https://github.com/erbraga/manutencao-frontend/archive/refs/heads/main.zip
-
-3. Crie um diretório e extraia os arquivos.
-
-4. Entre no diretório do projeto e instale as dependências, digitando no terminal:
-
-```
-npm install
-```
-<br>
 
 ## Como executar
 
-Abra o terminal no diretório onde baixou o repositório e digite:
-```
-npm run dev
-```
+4. Executar o comando ```npm run dev``` para iniciar a aplicação no servidor local. 
 
-5. Abra o navegador no endereço informado no terminal, normalmente é
-```
-http://localhost:5173/
-```
-4. Na barra de navegaçãop do navegador digite
-Para executar basta abrir o arquivo index.html no navegador.
-O layout do aplicativo foi projetado para ser responsivo, por isso muda caso seja executado em modo tablet ou celular.  
+5. Abra o navegador no endereço informado no terminal, normalmente é ```http://localhost:5173/```
 
-<br>
+O layout do aplicativo foi projetado para ser responsivo, por isso muda caso seja executado em modo tablet ou celular.
 
 ## Funcionalidades
 

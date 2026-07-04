@@ -1,6 +1,6 @@
 
 import {Outlet} from 'react-router'
-import {IconePrincipal} from './components/Icons';
+import {IconePrincipal} from './components/Icones';
 
 export default function App() {
 

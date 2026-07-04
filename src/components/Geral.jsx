@@ -1,4 +1,4 @@
-import {IconeAlerta, IconeSalvar, IconeVoltar} from './Icons';
+import {IconeAlerta, IconeSalvar, IconeVoltar} from './Icones';
 
 export function Selecao({label, value, name, className, opcoes, onChange}){
   return(

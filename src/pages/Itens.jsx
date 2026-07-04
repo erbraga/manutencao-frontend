@@ -1,7 +1,8 @@
 import {useState, useEffect} from 'react';
 import {useNavigate, useSearchParams} from 'react-router'
-import {IconeVoltar, IconeSalvar} from '../components/Icons'
-import {InputNumero, InputTexto, InputData, BarraSuperiorTitulo, Modal} from '../components/Tela';
+import {IconeVoltar, IconeSalvar} from '../components/Icones'
+import {InputNumero, InputTexto, InputData, BarraSuperiorTitulo, Modal} 
+  from '../components/Geral';
 
 export function Itens(){
   const [modalAberto, setModalAberto] = useState(false);

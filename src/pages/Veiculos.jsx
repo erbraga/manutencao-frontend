@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router';
 import {InputBotaoEditar, InputBotaoSalvar, BotaoHorizontal, Modal, ModalConfirmacao
-    } from '../components/Tela';
+    } from '../components/Geral';
 
 export function Veiculos(){
   const [modalAberto, setModalAberto] = useState(false);

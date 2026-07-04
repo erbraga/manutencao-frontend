@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router';
 import {IconeAtualizar, IconeEditar, IconeDeletar, IconeMais, IconeVoltar
-       } from '../components/Icons';
+       } from '../components/Icones';
 import {InputData, InputNumero, FormatarDataBr, SomarPrazo, BlocoVertical, 
       BlocoHorizontal, BarraSuperiorTitulo, BotaoFlutuanteMobile, Modal
-      } from '../components/Tela';
+      } from '../components/Geral';
 
 export function Manutencoes(){
   const [modalAberto, setModalAberto] = useState(false);
@@ -109,11 +109,6 @@ export function Manutencoes(){
     data2 = new Date(data2 + "T00:00:00");
       return (data1 < data2)
   }
-
-
-
-
-  
 
   return(
     <section className=''>
